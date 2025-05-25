@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "AdapterFactory.controllers.AdapterController",
+    "Method": "getAllContents",
+    "RelativePath": "api/v1/Adapter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdapterFactory.controllers.AdapterController",
+    "Method": "placeOrder",
+    "RelativePath": "api/v1/Adapter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "order",
+        "Type": "OrderService.API.DTO.OrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
