@@ -1,0 +1,6 @@
+@AbcAdapter.API_HostAddress = http://localhost:5075
+
+GET {{AbcAdapter.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

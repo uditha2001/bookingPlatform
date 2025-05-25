@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|c:\\users\\int.uditha\\onedrive - creative software (pvt) ltd\\desktop\\projects\\microserviceprac\\bookingplatform\\orderservice\\orderservice.api\\models\\entity\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|solutionrelative:orderservice\\orderservice.api\\models\\entity\\orderentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|c:\\users\\int.uditha\\onedrive - creative software (pvt) ltd\\desktop\\projects\\microserviceprac\\bookingplatform\\orderservice\\orderservice.api\\models\\entity\\orderitementity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|solutionrelative:orderservice\\orderservice.api\\models\\entity\\orderitementity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|c:\\users\\int.uditha\\onedrive - creative software (pvt) ltd\\desktop\\projects\\microserviceprac\\bookingplatform\\orderservice\\orderservice.api\\orderservice.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{441C230A-87D1-4E32-8433-8CD0CC3624A2}|OrderService\\OrderService.API\\OrderService.API.csproj|solutionrelative:orderservice\\orderservice.api\\orderservice.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7704092-4A46-4590-8400-0921128EDF63}|UserService\\userService.Api\\userService.Api.csproj|c:\\users\\int.uditha\\onedrive - creative software (pvt) ltd\\desktop\\projects\\microserviceprac\\bookingplatform\\userservice\\userservice.api\\entity\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7704092-4A46-4590-8400-0921128EDF63}|UserService\\userService.Api\\userService.Api.csproj|solutionrelative:userservice\\userservice.api\\entity\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderItemEntity.cs",
+              "DocumentMoniker": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\Models\\Entity\\OrderItemEntity.cs",
+              "RelativeDocumentMoniker": "OrderService\\OrderService.API\\Models\\Entity\\OrderItemEntity.cs",
+              "ToolTip": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\Models\\Entity\\OrderItemEntity.cs",
+              "RelativeToolTip": "OrderService\\OrderService.API\\Models\\Entity\\OrderItemEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:29:49.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderEntity.cs",
+              "DocumentMoniker": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\Models\\Entity\\OrderEntity.cs",
+              "RelativeDocumentMoniker": "OrderService\\OrderService.API\\Models\\Entity\\OrderEntity.cs",
+              "ToolTip": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\Models\\Entity\\OrderEntity.cs",
+              "RelativeToolTip": "OrderService\\OrderService.API\\Models\\Entity\\OrderEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:28:37.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderService.API",
+              "DocumentMoniker": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\OrderService.API.csproj",
+              "RelativeDocumentMoniker": "OrderService\\OrderService.API\\OrderService.API.csproj",
+              "ToolTip": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\OrderService\\OrderService.API\\OrderService.API.csproj",
+              "RelativeToolTip": "OrderService\\OrderService.API\\OrderService.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-25T06:28:30.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserEntity.cs",
+              "DocumentMoniker": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\UserService\\userService.Api\\entity\\UserEntity.cs",
+              "RelativeDocumentMoniker": "UserService\\userService.Api\\entity\\UserEntity.cs",
+              "ToolTip": "C:\\Users\\int.uditha\\OneDrive - Creative Software (Pvt) Ltd\\Desktop\\Projects\\microServicePrac\\bookingPlatform\\UserService\\userService.Api\\entity\\UserEntity.cs",
+              "RelativeToolTip": "UserService\\userService.Api\\entity\\UserEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T06:25:00.487Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

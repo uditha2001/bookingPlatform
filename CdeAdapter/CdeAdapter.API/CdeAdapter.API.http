@@ -1,0 +1,6 @@
+@CdeAdapter.API_HostAddress = http://localhost:5105
+
+GET {{CdeAdapter.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

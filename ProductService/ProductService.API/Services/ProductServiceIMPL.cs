@@ -1,0 +1,372 @@
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using OrderService.API.DTO;
+using ProductService.API.Data;
+using ProductService.API.DTO;
+using ProductService.API.Models.Entities;
+using ProductService.API.Repository.RepositoryInterfaces;
+using ProductService.API.Services.serviceInterfaces;
+using Quartz;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+
+namespace ProductService.API.Services
+{
+    public class ProductServiceImpl : IProductService
+    {
+        private readonly IProductRepo _productRepo;
+        private readonly ILogger<ProductServiceImpl> _logger;
+        private readonly HttpClient _httpClient;
+        public ProductServiceImpl(
+          IProductRepo productRepo,
+          ILogger<ProductServiceImpl> logger)
+        {
+            _productRepo = productRepo;
+            _httpClient = new HttpClient();
+            _logger = logger;
+        }
+
+        public async Task<bool> importProducts(ProductDTO productDto)
+        {
+            try
+            {
+                ProductEntity product = ProductDTOToEntity(productDto);
+                await _productRepo.addProduct(product);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in CreateProductAsync: {ex.Message}");
+                return false;
+            }
+        
+        }
+
+        public  ProductDTO ProductEntityToDTO(ProductEntity entity)
+        {
+            if (entity == null) return null!;
+
+            return new ProductDTO
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                owner=entity.owner,
+                availableQuantity = entity.availableQuantity,
+                rate=entity.rate,
+                originId=entity.originId,
+                provider=entity.Provider,
+                Description = entity.Description ?? string.Empty,
+                Price = entity.Price,
+                Currency = entity.Currency,
+                CategoryId = Guid.Empty,
+                Attributes = new List<ProductAttributesDTO>(),
+                Contents = new List<ProductContentDTO>()
+                
+            };
+        }
+
+
+        public ProductEntity ProductDTOToEntity(ProductDTO dto)
+        {
+            if (dto == null) return null!;
+
+            return new ProductEntity
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                originId=dto.originId,
+                availableQuantity=dto.availableQuantity,
+                Description = string.IsNullOrEmpty(dto.Description) ? null : dto.Description,
+                Price = dto.Price,
+                owner=dto.owner,
+                Currency = dto.Currency,
+                Provider = dto.provider,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+            };
+        }
+        public async Task<List<ProductDTO>?> UpdateProductsFromAdapterAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("http://localhost:5008/api/v1/Adapter");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null; 
+                }
+
+                var productsList = await response.Content.ReadFromJsonAsync<List<ProductDTO>>();
+
+                if (productsList == null || !productsList.Any())
+                {
+                    return new List<ProductDTO>(); 
+                }
+
+                foreach (var productDto in productsList)
+                {
+                    var existingProduct = await _productRepo.GetProductIfExistsAsync(productDto);
+
+                    if (existingProduct != null)
+                    {
+                        var updatedProduct = ProductDTOToEntity(productDto);
+                        existingProduct.Name = updatedProduct.Name;
+                        existingProduct.Description = updatedProduct.Description;
+                        existingProduct.Price = updatedProduct.Price;
+                        existingProduct.Currency = updatedProduct.Currency;
+                        existingProduct.UpdatedAt = DateTime.UtcNow;
+                        existingProduct.originId = updatedProduct.originId;
+                        existingProduct.Provider = updatedProduct.Provider;
+                        existingProduct.availableQuantity=updatedProduct.availableQuantity;
+                        existingProduct.owner=updatedProduct.owner;
+
+                        await _productRepo.RemoveAllProductAttributesByProvider(existingProduct);
+                        await _productRepo.RemoveAllProductContentsWhereProviderNotEmpty(existingProduct);
+
+                        if (productDto.Attributes != null)
+                        {
+                            foreach (var attrDto in productDto.Attributes)
+                            {
+                                existingProduct.Attributes.Add(new ProductAttributesEntity
+                                {
+                                    provider = attrDto.provider,
+                                    Key = attrDto.Key,
+                                    Value = attrDto.Value,
+                                    ProductId = existingProduct.Id
+                                });
+                            }
+                        }
+
+                        if (productDto.Contents != null)
+                        {
+                            foreach (var contentDto in productDto.Contents)
+                            {
+                                existingProduct.Contents.Add(new ProductContentEntity
+                                {
+                                    provider = contentDto.provider,
+                                    Type = contentDto.Type,
+                                    Url = contentDto.Url,
+                                    Description = contentDto.Description,
+                                    ProductId = existingProduct.Id
+                                });
+                            }
+                        }
+
+                        await _productRepo.UpdateProductAsync(existingProduct);
+                    }
+                    else
+                    {
+                        var newEntity = ProductDTOToEntity(productDto);
+
+                        newEntity.Attributes = productDto.Attributes?.Select(attr => new ProductAttributesEntity
+                        {
+                            provider = attr.provider,
+                            Key = attr.Key,
+                            Value = attr.Value,
+                            ProductId = productDto.Id
+                        }).ToList() ?? new List<ProductAttributesEntity>();
+
+                        newEntity.Contents = productDto.Contents?.Select(content => new ProductContentEntity
+                        {
+                            provider = content.provider,
+                            Type = content.Type,
+                            Url = content.Url,
+                            Description = content.Description,
+                            ProductId = productDto.Id
+                        }).ToList() ?? new List<ProductContentEntity>();
+
+                        await _productRepo.addProduct(newEntity);
+                    }
+                }
+
+                return productsList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating product and attributes: {ex.Message}");
+                return null;
+            }
+        }
+
+
+        public async Task<List<ProductDTO>> getAllProducts()
+        {
+            var products=await _productRepo.getAllProducts();
+            List<ProductDTO> productsList = new List<ProductDTO>();
+            foreach (ProductEntity productEntity in products )
+            {
+                ProductDTO productDto = new ProductDTO();
+                productDto = ProductEntityToDTO(productEntity);
+                productsList.Add(productDto);
+            }
+            return productsList;
+        }
+
+        public async Task<bool> createProduct(ProductDTO productdto)
+        {
+            try
+            {
+                ProductEntity productEntity=ProductDTOToEntity(productdto);
+                extractAttributesAndContentFromProductDTO(productdto,productEntity);
+                await _productRepo.saveProduct(productEntity);
+                return true;
+
+
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Error updating product and attributes: {e.Message}");
+                return false;
+            }
+        }
+
+        public void extractAttributesAndContentFromProductDTO(ProductDTO productdto,ProductEntity productentity)
+        {
+            if (productdto.Attributes != null)
+            {
+                foreach (var attrDto in productdto.Attributes)
+                {
+                    productentity.Attributes.Add(new ProductAttributesEntity
+                    {
+                        provider = attrDto.provider,
+                        Key = attrDto.Key,
+                        Value = attrDto.Value,
+                        ProductId = productentity.Id
+                    });
+                }
+            }
+
+            if (productdto.Contents != null)
+            {
+                foreach (var contentDto in productdto.Contents)
+                {
+                    productentity.Contents.Add(new ProductContentEntity
+                    {
+                        provider = contentDto.provider,
+                        Type = contentDto.Type,
+                        Url = contentDto.Url,
+                        Description = contentDto.Description,
+                        ProductId = productentity.Id
+                    });
+                }
+            }
+        }
+
+        public async Task<bool> deleteProductAsync(long productId)
+        {
+            try
+            {
+               await _productRepo.deleteProductAsync(productId);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        public async Task<List<ProductDTO>> getInternalSystemProducts()
+        {
+            try
+            {
+                List<ProductEntity> productEntityList = await _productRepo.getInternalSystemProducts();
+                List<ProductDTO> products = new List<ProductDTO>();
+                foreach (ProductEntity productEntity in productEntityList)
+                {
+                    ProductDTO productDTO = ProductEntityToDTO(productEntity);
+                    products.Add(productDTO);
+
+                }
+                return products;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                _logger.LogError(e, "An error occurred while processing the request.");
+                return new List<ProductDTO>();
+            }
+
+        }
+
+        /// <summary>
+        /// Processes a product sale by updating the remaining item counts 
+        /// for each product listed in the order.
+        /// </summary>
+        /// <param name="orderDto">The order containing the list of products and their quantities to be sold.</param>
+        /// <returns>
+        /// A boolean indicating whether the sale was successfully processed.
+        /// Returns <c>true</c> if all products were successfully updated; otherwise, <c>false</c>.
+        /// </returns>
+        public async Task<bool> SellProducts(List<OrderItemsDTO> orderDto)
+        {
+            try
+            {
+                foreach (OrderItemsDTO order in orderDto)
+                {
+                    ProductEntity product = await _productRepo.getExternalProductByIdAsync(order.ProductId);
+                    if(product != null)
+                    {
+                        if (product.availableQuantity >= order.quantity)
+                        {
+                            await _productRepo.sellProducts(product.Id, (product.availableQuantity - order.quantity));
+                            if (!string.IsNullOrEmpty(product.Provider))
+                            {
+                                var json = JsonSerializer.Serialize(orderDto);
+                                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                                var response = await _httpClient.PutAsync("http://localhost:5008/api/v1/adapter",content);
+                                if (response.IsSuccessStatusCode)
+                                {
+                                    Console.WriteLine("Product updated successfully.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Failed to update product: {response.StatusCode}");
+                                    return false;
+                                }
+
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                _logger.LogError(e, "An error occurred while processing the request.");
+                throw;
+            }
+        }
+
+        public async Task<ProductDTO> GetExtranalProductById(long productId)
+        {
+            try
+            {
+                ProductEntity product=await _productRepo.getExternalProductByIdAsync(productId);
+                if (product != null)
+                {
+                    ProductDTO productDto = ProductEntityToDTO(product);
+                    return productDto;
+                }
+                return new ProductDTO();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                _logger.LogError(e, "An error occurred while processing the request.");
+                throw;
+            }
+        }
+    }
+}

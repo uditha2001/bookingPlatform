@@ -1,0 +1,118 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ProductService.API.Data;
+using ProductService.API.DTO;
+using ProductService.API.Models.Entities;
+using ProductService.API.Repository.RepositoryInterfaces;
+
+namespace ProductService.API.Repository
+{
+    public class ProductRepositoryIMPL : IProductRepo
+    {
+        private readonly ProductDbContext _dbContext;
+        public ProductRepositoryIMPL(ProductDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public async Task AddProductAsync(ProductEntity product)
+        {
+            _dbContext.Products.Add(product);
+            await _dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task RemoveAllProductAttributesByProvider(ProductEntity existingProduct)
+        {
+            var filteredAttributes = existingProduct.Attributes
+                .Where(attr => !string.IsNullOrEmpty(attr.provider))  
+                .ToList();
+
+            _dbContext.productAttribute.RemoveRange(filteredAttributes);
+            await _dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task RemoveAllProductContentsWhereProviderNotEmpty(ProductEntity existingProduct)
+        {
+            var filteredContents = existingProduct.Contents
+                .Where(content => !string.IsNullOrEmpty(content.provider))
+                .ToList();
+
+            _dbContext.Content.RemoveRange(filteredContents);
+            await _dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task<ProductEntity?> GetProductIfExistsAsync(ProductDTO productDto)
+        {
+            return await _dbContext.Products
+                .Include(p => p.Attributes)
+                .Include(p => p.Contents)
+                .FirstOrDefaultAsync(p =>
+                    p.originId == productDto.originId &&
+                    p.Provider == productDto.provider);
+        }
+
+
+        async Task IProductRepo.addProduct(ProductEntity productEntity)
+        {
+             _dbContext.Products.Add(productEntity);
+            await _dbContext.SaveChangesAsync();
+
+        }
+        public async Task UpdateProductAsync(ProductEntity product)
+        {
+            _dbContext.Products.Update(product);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task<List<ProductEntity>> getAllProducts()
+        {
+            return await _dbContext.Products.ToListAsync();
+        }
+
+        public async Task saveProduct(ProductEntity productEntity)
+        {
+            _dbContext.Products.Add(productEntity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async  Task deleteProductAsync(long productId)
+        {
+            var product = await _dbContext.Products
+           .FirstOrDefaultAsync(p => p.Id == productId && p.Provider=="" && p.originId==-1);
+            if (product != null)
+            {
+                _dbContext.Products .Remove(product);
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Product with ID {productId} was not found.");
+
+            }
+        }
+
+        public async Task<List<ProductEntity>> getInternalSystemProducts()
+        {
+            List<ProductEntity> products =await _dbContext.Products.Where(p => p.Provider == "" && p.originId == -1)
+            .ToListAsync();
+            return products;
+        }
+
+        public async Task<bool> sellProducts(long productId,int restItemsCount)
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            if (product != null)
+            {
+                product.availableQuantity=restItemsCount;
+            }
+           int effectRaw= await _dbContext.SaveChangesAsync();
+            return effectRaw > 0;
+            
+        }
+
+        public async Task<ProductEntity> getExternalProductByIdAsync(long productId)
+        {
+            return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == productId && !string.IsNullOrEmpty(p.Provider));
+        }
+    }
+}

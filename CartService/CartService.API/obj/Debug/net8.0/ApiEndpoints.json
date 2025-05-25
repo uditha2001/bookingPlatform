@@ -1,0 +1,98 @@
+[
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "GetCartByUserId",
+    "RelativePath": "api/v1/cart/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "AddItemToCart",
+    "RelativePath": "api/v1/cart/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "item",
+        "Type": "CartService.API.DTO.CartItemDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "ClearCart",
+    "RelativePath": "api/v1/cart/clear/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "RemoveItemFromCart",
+    "RelativePath": "api/v1/cart/remove/{itemId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "itemId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "SubmitOrder",
+    "RelativePath": "api/v1/cart/submit/{userId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "UpdateCartItemQuantity",
+    "RelativePath": "api/v1/cart/update-quantity",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateItemLists",
+        "Type": "System.Collections.Generic.List\u00601[[CartService.API.DTO.UpdateQuantityDTO, CartService.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

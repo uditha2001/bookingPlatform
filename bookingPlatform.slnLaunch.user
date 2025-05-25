@@ -1,0 +1,35 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "AmazoneMockService\\AmazoneMockService\\CdeMockService.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "EbayMockService\\EbayMockService\\AbcMockService.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "AdapterFactory\\AdapterFactory\\AdapterFactory.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ProductService\\ProductService.API\\ProductService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "CartService\\CartService.API\\CartService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "OrderService\\OrderService.API\\OrderService.API.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "UserService\\userService.Api\\userService.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

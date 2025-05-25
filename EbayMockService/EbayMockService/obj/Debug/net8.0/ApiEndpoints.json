@@ -1,0 +1,22 @@
+[
+  {
+    "ContainingType": "AbcMockService.Controllers.TestController",
+    "Method": "GetMockData",
+    "RelativePath": "api/v1/products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AbcMockService.Controllers.TestController",
+    "Method": "placeOrder",
+    "RelativePath": "api/v1/products",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
