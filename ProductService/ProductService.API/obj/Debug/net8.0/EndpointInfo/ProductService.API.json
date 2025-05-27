@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/v1/product": {
+    "/api/v1/product/allProducts": {
       "get": {
         "tags": [
           "Product"
@@ -41,7 +41,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/v1/product": {
       "post": {
         "tags": [
           "Product"
@@ -183,7 +185,7 @@
         }
       }
     },
-    "/api/v1/attribute": {
+    "/api/v1/product/attribute": {
       "get": {
         "tags": [
           "ProductAttribute"
@@ -321,7 +323,7 @@
         }
       }
     },
-    "/api/v1/content": {
+    "/api/v1/product/content": {
       "post": {
         "tags": [
           "ProductContent"
@@ -382,7 +384,7 @@
         }
       }
     },
-    "/api/v1/content/{id}": {
+    "/api/v1/product/content/{id}": {
       "put": {
         "tags": [
           "ProductContent"

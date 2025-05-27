@@ -5,7 +5,7 @@ using ProductService.API.Services.serviceInterfaces;
 namespace ProductService.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/content")]
+    [Route("api/v1/product/content")]
     public class ProductContentController : ControllerBase
     {
         private readonly IProductContentService _productContentService;

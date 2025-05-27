@@ -29,6 +29,10 @@
       {
         "Path": "UserService\\userService.Api\\userService.Api.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "CoreGateway\\CoreGateway.API\\CoreGateway.API.csproj",
+        "Action": "Start"
       }
     ]
   }

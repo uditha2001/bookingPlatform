@@ -18,7 +18,7 @@ namespace ProductService.API.Controllers
         /// <summary>
         /// Retrieves all products.
         /// </summary>
-        [HttpGet]
+        [HttpGet("allProducts")]
         public async Task<ActionResult<ProductDTO[]>> GetAllProducts()
         {
             var result = await _iproductService.getAllProducts();

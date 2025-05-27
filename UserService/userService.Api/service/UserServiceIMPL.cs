@@ -18,6 +18,7 @@ namespace userService.Api.service
 
         public async Task<bool> createUserAsync(UserDTO user)
         {
+            user.password=BCrypt.Net.BCrypt.HashPassword(user.password);
             var entity = ToEntity(user);
             var result = await _userRepository.createUserAsync(entity);
 
@@ -39,12 +40,20 @@ namespace userService.Api.service
 
         public async Task<bool> loginUserAsync(string userName, string password)
         {
-            var user = await _userRepository.loginUserAsync(userName, password);
-
+            UserEntity user = await _userRepository.loginUserAsync(userName, password);
             if (user == null)
-                throw new Exception("Invalid username or password.");
+                return false;
 
-            return true;
+            bool isPasswordVailid = BCrypt.Net.BCrypt.Verify(password,user.password);
+            if (!isPasswordVailid)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
 
         public UserDTO ToDTO(UserEntity entity)
@@ -55,7 +64,8 @@ namespace userService.Api.service
                 userName = entity.userName,
                 password = entity.password,
                 FirstName = entity.firstName,
-                LastName = entity.lastName
+                LastName = entity.lastName,
+                Email=entity.Email,
             };
         }
 
@@ -67,7 +77,8 @@ namespace userService.Api.service
                 userName = dto.userName,
                 password = dto.password,
                 firstName = dto.FirstName,
-                lastName = dto.LastName
+                lastName = dto.LastName,
+                Email = dto.Email
             };
         }
     }

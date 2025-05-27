@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "ContainingType": "CoreGateway.API.Controllers.AuthenticationController",
+    "Method": "loginUser",
+    "RelativePath": "api/v1/authentication",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
