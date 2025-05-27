@@ -37,7 +37,7 @@ namespace userService.Api.repository
 
         public async Task<UserEntity> loginUserAsync(string userName, string password)
         {
-          UserEntity userDetails=await _userDbContext.Users.FirstOrDefaultAsync(U=>U.userName== userName && U.password==password);
+          UserEntity userDetails=await _userDbContext.Users.FirstOrDefaultAsync(U=>U.userName== userName);
             return userDetails;
         }
     }

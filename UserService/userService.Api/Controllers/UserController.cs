@@ -68,7 +68,7 @@ namespace userService.Api.Controllers
             try
             {
                 var result = await _userService.loginUserAsync(userName, password);
-                return Ok(new { message = "Login successful." });
+                return Ok(result);
             }
             catch (Exception ex)
             {

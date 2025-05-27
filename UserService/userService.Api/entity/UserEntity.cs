@@ -16,5 +16,7 @@ namespace userService.Api.entity
         public string firstName {  get; set; }
         [Required]
         public string lastName {  get; set; }
+        [Required]
+        public string Email { get; set; }
     }
 }

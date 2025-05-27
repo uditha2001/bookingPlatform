@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace ProductService.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/attribute")]
+    [Route("api/v1/product/attribute")]
     public class ProductAttributeController : Controller
     {
         private readonly IProductAttributeService _productAttributeService;
