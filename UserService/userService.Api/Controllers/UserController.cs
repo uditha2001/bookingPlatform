@@ -67,12 +67,13 @@ namespace userService.Api.Controllers
         {
             try
             {
-                var result = await _userService.loginUserAsync(userName, password);
-                return Ok(result);
+                UserDTO result = await _userService.loginUserAsync(userName, password);
+                return Ok(result.userId);
             }
             catch (Exception ex)
             {
-                return Unauthorized(new { message = ex.Message });
+                Console.WriteLine(ex.Message);
+                return Unauthorized(null);
             }
         }
     }

@@ -91,7 +91,11 @@ namespace ProductService.API.Repository.RepositoryInterfaces
 
         Task<bool> sellProducts(long productId, int restItemsCount);
 
+        Task<List<ProductCategoryEntity>> getAllCategories();
+
+
         Task<ProductEntity> getExternalProductByIdAsync(long productId);
+        Task<List<ProductEntity>> getOwnerProducts(long userId);
 
 
 

@@ -8,7 +8,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "productDto",
+        "Name": "newProduct",
         "Type": "ProductService.API.DTO.ProductDTO",
         "IsRequired": true
       }
@@ -152,6 +152,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getAllCategories",
+    "RelativePath": "api/v1/product/category",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ProductService.API.Controllers.ProductContentController",
     "Method": "CreateContent",
     "RelativePath": "api/v1/product/content",
@@ -160,13 +170,13 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "ProductService.API.DTO.ProductContentDTO",
-        "IsRequired": true
-      },
-      {
         "Name": "productId",
         "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "images",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
         "IsRequired": false
       }
     ],
@@ -233,6 +243,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getOwnerProducts",
+    "RelativePath": "api/v1/product/ownerProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

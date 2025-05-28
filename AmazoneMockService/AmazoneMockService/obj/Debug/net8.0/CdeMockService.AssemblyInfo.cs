@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CdeMockService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+315e05b81a64c5f557691c41b69b4dab3b9a6c70")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9e6175ba466b7b9e55f6b899a3e171f58fa9f64")]
 [assembly: System.Reflection.AssemblyProductAttribute("CdeMockService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CdeMockService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

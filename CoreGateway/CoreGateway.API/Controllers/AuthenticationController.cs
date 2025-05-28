@@ -1,4 +1,5 @@
-﻿using CoreGateway.API.Service.Interfaces;
+﻿using CoreGateway.API.dto;
+using CoreGateway.API.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,8 +31,8 @@ namespace CoreGateway.API.Controllers
         {
             try
             {
-                String token = await _authService.ValidateUserCredentials(userName, password);
-                if (!String.IsNullOrEmpty(token))
+                TokenDTO token = await _authService.ValidateUserCredentials(userName, password);
+                if (!String.IsNullOrEmpty(token.acessToken))
                 {
                     return Ok(token);
 

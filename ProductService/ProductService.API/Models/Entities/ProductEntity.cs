@@ -30,11 +30,16 @@ namespace ProductService.API.Models.Entities
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+        [ForeignKey("ProductCategoryId")]
+        public ProductCategoryEntity ProductCategory { get; set; }
+        public int ProductCategoryId { get; set; }
 
         [Required]
         public string Currency { get; set; } = "USD";
         public List<ProductAttributesEntity> Attributes { get; set; } = new();
         public List<ProductContentEntity> Contents { get; set; } = new();
+
+        public long createdBy {  get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

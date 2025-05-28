@@ -18,11 +18,12 @@ namespace ProductService.API.Controllers
         /// create a content, allow to create onecontent at a time
         /// </summary>
         [HttpPost]
-        public async Task<IActionResult> CreateContent([FromBody] ProductContentDTO dto, [FromQuery] long productId)
+        public async Task<IActionResult> CreateContent([FromQuery] long productId, [FromForm] List<IFormFile> images)
         {
-            var result = await _productContentService.createContent(dto, productId);
+            var result = await _productContentService.SaveProductImagesAsync(productId, images);
             if (!result)
                 return StatusCode(500, "Failed to create content.");
+
             return Ok("Content created successfully.");
         }
         /// <summary>

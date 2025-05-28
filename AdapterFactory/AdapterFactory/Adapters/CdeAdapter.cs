@@ -25,7 +25,7 @@ namespace AdapterFactory.Adapters
                 Description = cdeDTO.Description,
                 Price = cdeDTO.Price,
                 Currency = cdeDTO.Currency,
-                CategoryId = cdeDTO.CategoryId,
+                ProductCategoryId = cdeDTO.ProductCategoryId,
                 Attributes = cdeDTO.Attributes?.Select(a => new ProductAttributesDTO
                 {
                     Key = a.Key,
@@ -54,7 +54,7 @@ namespace AdapterFactory.Adapters
                 Description = productDto.Description,
                 Price = productDto.Price,
                 Currency = productDto.Currency,
-                CategoryId = productDto.CategoryId,
+                ProductCategoryId = productDto.ProductCategoryId,
                 Attributes = productDto.Attributes?.Select(a => new ProductAttributesDTO
                 {
                     Key = a.Key,

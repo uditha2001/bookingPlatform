@@ -19,24 +19,24 @@ namespace CdeMockService.Controllers
                 var product = new CdeDTO
                 {
                     originId = i,
-                    Name = $"Item {Convert.ToChar(64 + i)}", // Item A, Item B, etc.
+                    Name = $"Item {Convert.ToChar(64 + i)}", 
                     Description = $"Description for Item {Convert.ToChar(64 + i)}",
                     Price = 50m + i * 10,
                     Currency = "USD",
-                    CategoryId = Guid.NewGuid(),
-                    owner ="owner "+i,
-                    availableQuantity=10+i,
-                    Attributes = new List<ProductAttributesDTO>(), // empty for now
+                    ProductCategoryId = (i % 5) + 1,
+                    owner = "owner " + i,
+                    availableQuantity = 10 + i,
+                    Attributes = new List<ProductAttributesDTO>(),
                     Contents = new List<ProductContentDTO>
-                    {
-                        new ProductContentDTO
-                        {
-                            contentId = 1000 + i,
-                            Type = "Image",
-                            Url = $"http://example.com/image{Convert.ToChar(64 + i)}.jpg",
-                            Description = $"Image content for Item {Convert.ToChar(64 + i)}"
-                        }
-                    }
+        {
+            new ProductContentDTO
+            {
+                contentId = 1000 + i,
+                Type = "Image",
+                Url = $"http://example.com/image{Convert.ToChar(64 + i)}.jpg",
+                Description = $"Image content for Item {Convert.ToChar(64 + i)}"
+            }
+        }
                 };
 
                 products.Add(product);

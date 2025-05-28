@@ -66,7 +66,8 @@ namespace ProductService.API.Repository
         }
         public async Task<List<ProductEntity>> getAllProducts()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Products.Include(p => p.Attributes)
+                .Include(p => p.Contents).ToListAsync();
         }
 
         public async Task saveProduct(ProductEntity productEntity)
@@ -113,6 +114,22 @@ namespace ProductService.API.Repository
         public async Task<ProductEntity> getExternalProductByIdAsync(long productId)
         {
             return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == productId && !string.IsNullOrEmpty(p.Provider));
+        }
+
+        public async Task<List<ProductCategoryEntity>> getAllCategories()
+        {
+            return await _dbContext.productCategory.ToListAsync();
+        }
+        public async Task<List<ProductEntity>> getOwnerProducts(long userId)
+        {
+            var userIdStr = userId.ToString();
+
+            List<ProductEntity> products = await _dbContext.Products
+                .Include(p => p.Attributes)
+                .Include(p => p.Contents)
+                .Where(p => p.createdBy == userId)
+                .ToListAsync();
+        return products;
         }
     }
 }

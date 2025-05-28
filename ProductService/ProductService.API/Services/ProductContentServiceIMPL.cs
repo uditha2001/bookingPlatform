@@ -15,20 +15,23 @@ namespace ProductService.API.Services
         private readonly IProductContentRepository _repository;
         private readonly ILogger<ProductContentServiceIMPL> _logger;
         private readonly HttpClient _httpClient;
-        private readonly ProductDbContext _dbContext;
+        private readonly IWebHostEnvironment _env;
 
-        public ProductContentServiceIMPL(IProductContentRepository repository, ILogger<ProductContentServiceIMPL> logger, ProductDbContext dbContext)
+
+        public ProductContentServiceIMPL(IProductContentRepository repository, ILogger<ProductContentServiceIMPL> logger, IWebHostEnvironment env)
         {
             _repository = repository;
             _logger = logger;
             _httpClient = new HttpClient();
-            _dbContext = dbContext;
+            _env = env;
+
         }
 
         public async Task<bool> createContent(ProductContentDTO productContentDTO, long productId)
         {
             try
             {
+
                 var entity = ToEntity(productContentDTO, productId);
                 return await _repository.CreateContentAsync(entity);
             }
@@ -104,6 +107,56 @@ namespace ProductService.API.Services
                 ProductId = productId
             };
         }
-   
+        public async Task<bool> SaveProductImagesAsync(long productId, List<IFormFile> images)
+        {
+            if (images == null || images.Count == 0)
+                return false;
+            var wwwrootPath = _env.WebRootPath;
+            if (!Directory.Exists(wwwrootPath))
+            {
+                Directory.CreateDirectory(wwwrootPath);
+            }
+            var folderPath = Path.Combine(wwwrootPath, "uploads", "products", productId.ToString());
+
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            var productContents = new List<ProductContentDTO>();
+            long contentIdCounter = 1;
+
+            foreach (var image in images)
+            {
+                if (image.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+                    var filePath = Path.Combine(folderPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    var relativeUrl = Path.Combine("uploads", "products", productId.ToString(), fileName).Replace("\\", "/");
+
+                    ProductContentDTO contentDto = new ProductContentDTO
+                    {
+                        provider = "",
+                        Type = image.ContentType,
+                        Url = relativeUrl,
+                        Description = $"Image for product {productId}"
+                    };
+                    await createContent(contentDto,productId);
+
+                }
+            }
+
+            return true;
+        }
+
     }
 }

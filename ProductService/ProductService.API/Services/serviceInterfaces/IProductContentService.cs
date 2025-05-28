@@ -58,6 +58,7 @@ namespace ProductService.API.Services.serviceInterfaces
         /// <param name="productId">The ID of the product to associate with the content entity.</param>
         /// <returns>A <see cref="ProductContentEntity"/> object containing the mapped data.</returns>
         ProductContentEntity ToEntity(ProductContentDTO dto, long productId);
+        Task<bool> SaveProductImagesAsync(long productId, List<IFormFile> images);
 
 
     }

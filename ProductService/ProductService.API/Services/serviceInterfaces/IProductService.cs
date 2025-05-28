@@ -76,6 +76,9 @@ namespace ProductService.API.Services.serviceInterfaces
 
         void extractAttributesAndContentFromProductDTO(ProductDTO productdto, ProductEntity productentity);
 
+        Task<List<ProductDTO>> getOwnerProducts(long userId);
+        Task<List<ProductCategoryDTO>> getAllCategories();
+
         Task<bool> SellProducts(List<OrderItemsDTO> orderDto);
         Task<ProductDTO> GetExtranalProductById(long productId);
 

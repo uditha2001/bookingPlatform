@@ -33,9 +33,9 @@ namespace ProductService.API.Controllers
         /// create new product
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductDTO productDto)
+        public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductDTO newProduct)
         {
-            bool result = await _iproductService.createProduct(productDto);
+            bool result = await _iproductService.createProduct(newProduct);
 
             if (!result)
             {
@@ -101,6 +101,32 @@ namespace ProductService.API.Controllers
                 return Ok( await _iproductService.GetExtranalProductById(productId));
             }
             catch(Exception e)
+            {
+                Console.WriteLine($"Error in SellProducts: {e.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
+        [HttpGet("category")]
+        public async Task<IActionResult> getAllCategories()
+        {
+            try
+            {
+                return Ok(await _iproductService.getAllCategories());
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Error in SellProducts: {e.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
+        [HttpGet("ownerProducts")]
+        public async Task<IActionResult> getOwnerProducts([FromQuery]long userId)
+        {
+            try
+            {
+                return Ok(await _iproductService.getOwnerProducts(userId));
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Error in SellProducts: {e.Message}");
                 return StatusCode(500, "An error occurred while processing the request.");

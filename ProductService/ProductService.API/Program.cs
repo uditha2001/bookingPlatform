@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using ProductService.API.Data;
 using ProductService.API.Repository;
 using ProductService.API.Repository.RepositoryInterfaces;
@@ -64,6 +65,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles();
+var imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+
+if (!Directory.Exists(imageFolderPath))
+{
+    Directory.CreateDirectory(imageFolderPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(imageFolderPath),
+    RequestPath = "/images"
+});
+
 
 app.UseHttpsRedirection();
 

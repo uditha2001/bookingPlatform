@@ -185,6 +185,40 @@
         }
       }
     },
+    "/api/v1/product/category": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/ownerProducts": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/product/attribute": {
       "get": {
         "tags": [
@@ -340,19 +374,23 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "images": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -559,9 +597,13 @@
             "type": "string",
             "nullable": true
           },
-          "categoryId": {
-            "type": "string",
-            "format": "uuid"
+          "createdBy": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productCategoryId": {
+            "type": "integer",
+            "format": "int32"
           },
           "attributes": {
             "type": "array",
