@@ -21,7 +21,7 @@ namespace ProductService.API.Repository
 
         public async Task<bool> DeleteContentByIdAsync(long contentId)
         {
-            var content = await _dbContext.Content.FindAsync(contentId);
+            var content = await _dbContext.Content.FirstOrDefaultAsync(c=>c.ContentId==contentId);
             if (content == null)
                 return false;
 
