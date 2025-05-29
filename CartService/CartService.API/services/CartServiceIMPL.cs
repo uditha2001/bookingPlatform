@@ -20,13 +20,13 @@ namespace CartService.API.services
             _httpClient = httpClient;
         }
 
-        public async Task<CartItemDTO> AddItemToCartAsync(CartItemDTO item)
+        public async Task<bool> AddItemToCartAsync(CartItemDTO item)
         {
             try
             {
                 var entity = ToEntity(item, item.userId);
                 var updatedEntity = await _cartRepository.AddOrUpdateCartItemAsync(entity);
-                return ToDTO(updatedEntity);
+                return updatedEntity;
             }
             catch (Exception ex)
             {
@@ -83,16 +83,12 @@ namespace CartService.API.services
             }
         }
 
-        public async Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity)
+        public async Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity, decimal newTotalPrice)
         {
             try
             {
-                var items = await _cartRepository.GetCartByUserIdAsync(0); // Dummy call, update logic needed
-                var item = items.FirstOrDefault(i => i.cartItemId == cartItemId);
-                if (item == null) throw new KeyNotFoundException("Cart item not found.");
-
-                item.Quantity = newQuantity;
-                await _cartRepository.AddOrUpdateCartItemAsync(item);
+              
+                await _cartRepository.UpdateItemQuantityAsync(cartItemId, newQuantity, newTotalPrice);
                 return true;
             }
             catch (Exception ex)
@@ -100,47 +96,45 @@ namespace CartService.API.services
                 throw new ApplicationException("Failed to update item quantity.", ex);
             }
         }
-
         public async Task<bool> SubmitOrderAsync(long userId)
         {
             try
             {
                 List<CartItemEntity> items = await _cartRepository.GetCartByUserIdAsync(userId);
-                List<OrderItemsDTO> orders= new List<OrderItemsDTO>();
-                decimal totalPrice= 0;
-                foreach(CartItemEntity entity in items)
+
+                if (items == null || !items.Any())
+                    throw new InvalidOperationException("No items in cart to submit.");
+
+                List<OrderItemsDTO> orders = new List<OrderItemsDTO>();
+                decimal totalPrice = 0;
+
+                foreach (CartItemEntity entity in items)
                 {
-                    OrderItemsDTO orderItemDTO = new OrderItemsDTO();
-                    orderItemDTO.ProductId = entity.ProductId;
-                    orderItemDTO.quantity = entity.Quantity;
-                    orderItemDTO.itemTotalPrice=entity.itemTotalPrice;
-                    totalPrice+= entity.itemTotalPrice;
-                    orders.Add(orderItemDTO);
-                    
+                    orders.Add(new OrderItemsDTO
+                    {
+                        ProductId = entity.ProductId,
+                        quantity = entity.Quantity,
+                        itemTotalPrice = entity.itemTotalPrice
+                    });
+
+                    totalPrice += entity.itemTotalPrice;
                 }
-                OrderDTO orderDTO = new OrderDTO();
-                orderDTO.items = orders;
-                orderDTO.totalOrderprice = totalPrice;
-                orderDTO.userId= userId;
+
+                OrderDTO orderDTO = new OrderDTO
+                {
+                    items = orders,
+                    totalOrderprice = totalPrice,
+                    userId = userId
+                };
+
                 var json = JsonSerializer.Serialize(orderDTO);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("http://localhost:5062/api/v1/order", content);
 
                 if (!response.IsSuccessStatusCode)
-                {
                     throw new HttpRequestException($"Order submission failed. StatusCode: {response.StatusCode}");
-                }
-                else
-                {
 
-                }
-
-                    await _cartRepository.ClearCartAsync(userId);
-                return true;
-
-                if (!items.Any()) throw new InvalidOperationException("No items in cart to submit.");
-                
-                await _cartRepository.ClearCartAsync(userId); 
+                await _cartRepository.ClearCartAsync(userId);
                 return true;
             }
             catch (Exception ex)
@@ -148,6 +142,8 @@ namespace CartService.API.services
                 throw new ApplicationException("Failed to submit order.", ex);
             }
         }
+
+        
 
         public CartItemEntity ToEntity(CartItemDTO dto, long userId)
         {

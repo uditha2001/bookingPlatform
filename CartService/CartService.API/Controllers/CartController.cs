@@ -54,7 +54,13 @@ namespace CartService.API.Controllers
                     return BadRequest("Cart item cannot be null.");
 
                 var updatedCartItem = await _cartService.AddItemToCartAsync(item);
-                return Ok(updatedCartItem);
+                if (updatedCartItem)
+                {
+                    return Ok(updatedCartItem);
+
+                }
+                return StatusCode(500, "An error occurred while adding the item to the cart.");
+
             }
             catch (Exception)
             {
@@ -78,7 +84,7 @@ namespace CartService.API.Controllers
                 bool allUpdated = true;
                 foreach (var update in updateItemLists)
                 {
-                    var result = await _cartService.UpdateItemQuantityAsync(update.CartItemId, update.NewQuantity);
+                    var result = await _cartService.UpdateItemQuantityAsync(update.CartItemId, update.NewQuantity,update.newTotalPrice);
                     if (!result)
                     {
                         allUpdated = false;

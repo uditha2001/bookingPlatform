@@ -208,6 +208,10 @@
           "newQuantity": {
             "type": "integer",
             "format": "int32"
+          },
+          "newTotalPrice": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductService.API.DTO;
 
-
 namespace AbcMockService.Controllers
 {
     [ApiController]
@@ -18,30 +17,27 @@ namespace AbcMockService.Controllers
                 var product = new AbcDTO
                 {
                     originId = i,
-                    Name = $"Item {Convert.ToChar(64 + i)}", 
+                    Name = $"Item {Convert.ToChar(64 + i)}",
                     Description = $"Description for Item {Convert.ToChar(64 + i)}",
                     Price = 50m + i * 10,
                     Currency = "USD",
-                    ProductCategoryId = (i % 5) + 1, 
+                    ProductCategoryId = (i % 5) + 1,
                     owner = "owner " + i,
                     availableQuantity = 10 + i,
                     Attributes = new List<ProductAttributesDTO>(),
                     Contents = new List<ProductContentDTO>
-        {
-            new ProductContentDTO
-            {
-                contentId = 1000 + i,
-                Type = "Image",
-                Url = $"http://example.com/image{Convert.ToChar(64 + i)}.jpg",
-                Description = $"Image content for Item {Convert.ToChar(64 + i)}"
-            }
-        }
+                    {
+                        new ProductContentDTO
+                        {
+                            contentId = 1000 + i,
+                            Type = "Image",
+                            Url = $"https://picsum.photos/seed/{i}/300/200",
+                            Description = $"Image content for Item {Convert.ToChar(64 + i)}"
+                        }
+                    }
                 };
 
-            
-
-
-            products.Add(product);
+                products.Add(product);
             }
 
             return Ok(products);
@@ -50,7 +46,7 @@ namespace AbcMockService.Controllers
         [HttpPost]
         public IActionResult placeOrder()
         {
-            return Ok("order placement sucessfull");
+            return Ok("Order placement successful");
         }
     }
 }

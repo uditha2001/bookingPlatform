@@ -64,8 +64,8 @@ app.MapReverseProxy(proxyPipeline =>
             "/api/v1/user/login",
             "/api/v1/user/register",
             "/api/v1/product/allProducts",
+            "/uploads",
             "/swagger"
-            // Add other public paths here as needed
         };
 
         bool isPublic = publicPaths.Any(p => path.StartsWithSegments(p, StringComparison.OrdinalIgnoreCase));

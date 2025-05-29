@@ -94,13 +94,26 @@ namespace ProductService.API.Controllers
             }
         }
         [HttpGet("byId")]
-        public async Task<IActionResult> getProductById([FromQuery] long productId)
+        public async Task<IActionResult> getExternalProductById([FromQuery] long productId)
         {
             try
             {
                 return Ok( await _iproductService.GetExtranalProductById(productId));
             }
             catch(Exception e)
+            {
+                Console.WriteLine($"Error in SellProducts: {e.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
+        [HttpGet("productById")]
+        public async Task<IActionResult> getProductsById([FromQuery] long productId)
+        {
+            try
+            {
+                return Ok(await _iproductService.GetProductById(productId));
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Error in SellProducts: {e.Message}");
                 return StatusCode(500, "An error occurred while processing the request.");

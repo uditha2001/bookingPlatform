@@ -81,6 +81,7 @@ namespace ProductService.API.Services.serviceInterfaces
 
         Task<bool> SellProducts(List<OrderItemsDTO> orderDto);
         Task<ProductDTO> GetExtranalProductById(long productId);
+        Task<ProductDTO> GetProductById(long productId);
 
 
     }

@@ -96,6 +96,7 @@ namespace ProductService.API.Repository.RepositoryInterfaces
 
         Task<ProductEntity> getExternalProductByIdAsync(long productId);
         Task<List<ProductEntity>> getOwnerProducts(long userId);
+        Task<ProductEntity> GetProductById(long productId);
 
 
 

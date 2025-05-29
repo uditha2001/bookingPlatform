@@ -24,6 +24,7 @@ builder.Services.AddScoped<IProductContentRepository,ProductContentRepositoryIMP
 builder.Services.AddScoped<IProductContentService, ProductContentServiceIMPL>();
 builder.Services.AddScoped<IProductAttributeService,ProductAttributeServiceIMPL>();
 builder.Services.AddScoped<IProductAttriuteRepository,ProductAttributeRepositoryIMPL>();
+builder.Services.AddScoped<ProductAttributeServiceIMPL>();
 builder.Services.AddDbContext<ProductDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("productConnection")));
 //builder.Services.AddQuartz(q =>
@@ -48,7 +49,10 @@ builder.Services.AddScoped<ProductServiceImpl>();
 
 
 
-
+builder.WebHost
+    .UseKestrel()
+    .UseContentRoot(Directory.GetCurrentDirectory())
+    .UseUrls("https://localhost:7120");
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
@@ -66,20 +70,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles();
-var imageFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
-
-if (!Directory.Exists(imageFolderPath))
-{
-    Directory.CreateDirectory(imageFolderPath);
-}
-
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(imageFolderPath),
-    RequestPath = "/images"
-});
-
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

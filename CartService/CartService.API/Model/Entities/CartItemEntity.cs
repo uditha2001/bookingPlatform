@@ -14,7 +14,7 @@ namespace CartService.API.Model.Entities
         public long ProductId { get; set; }
         public int Quantity { get; set; } = 0;
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal itemTotalPrice { get; set; } = 0;
+        public decimal itemTotalPrice {  get; set; }
+
     }
 }

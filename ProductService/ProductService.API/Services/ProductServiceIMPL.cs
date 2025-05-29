@@ -396,6 +396,27 @@ namespace ProductService.API.Services
                 throw;
             }
         }
+        public async Task<ProductDTO> GetProductById(long productId)
+        {
+            try
+            {
+                ProductEntity product = await _productRepo.GetProductById(productId);
+                if (product != null)
+                {
+                    ProductDTO productDto = ProductEntityToDTO(product);
+                    ExtractAttributesAndContentToDTO(product, productDto);
+                    return productDto;
+                }
+                return new ProductDTO();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                _logger.LogError(e, "An error occurred while processing the request.");
+                throw;
+            }
+        }
 
         public async Task<List<ProductCategoryDTO>> getAllCategories()
         {

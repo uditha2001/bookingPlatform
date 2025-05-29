@@ -131,5 +131,11 @@ namespace ProductService.API.Repository
                 .ToListAsync();
         return products;
         }
+
+        public async Task<ProductEntity> GetProductById(long productId)
+        {
+            return await _dbContext.Products.Include(p => p.Contents).Include(p => p.Attributes)
+                         .FirstOrDefaultAsync(p => p.Id == productId);
+        }
     }
 }

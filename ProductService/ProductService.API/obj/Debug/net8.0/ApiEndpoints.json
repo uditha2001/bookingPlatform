@@ -137,7 +137,7 @@
   },
   {
     "ContainingType": "ProductService.API.Controllers.ProductController",
-    "Method": "getProductById",
+    "Method": "getExternalProductById",
     "RelativePath": "api/v1/product/byId",
     "HttpMethod": "GET",
     "IsController": true,
@@ -255,6 +255,22 @@
     "Parameters": [
       {
         "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getProductsById",
+    "RelativePath": "api/v1/product/productById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
         "Type": "System.Int64",
         "IsRequired": false
       }
