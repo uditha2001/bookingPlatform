@@ -35,14 +35,20 @@ namespace ProductService.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductDTO>> CreateProduct([FromBody] ProductDTO newProduct)
         {
-            bool result = await _iproductService.createProduct(newProduct);
-
-            if (!result)
+            try
             {
-                return BadRequest("Failed to create product.");
+                long result = await _iproductService.createProduct(newProduct);
+                return Ok(result);
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            return Ok();
+          
+
         }
         /// <summary>
         /// Delete a product byId,only allow to delete products which were added using internal system.

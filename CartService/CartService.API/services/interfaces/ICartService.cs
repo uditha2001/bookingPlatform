@@ -62,6 +62,7 @@ namespace CartService.API.services.interfaces
         /// <param name="userId">The unique identifier of the user.</param>
         /// <returns>A task that represents the asynchronous operation. Returns true if the order was submitted successfully.</returns>
         Task<bool> SubmitOrderAsync(long userId);
+        Task<int> getCartItemsCount(long userId);
 
     }
 

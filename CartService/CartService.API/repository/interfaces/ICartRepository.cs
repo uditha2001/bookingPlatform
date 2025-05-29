@@ -42,6 +42,8 @@ namespace CartService.API.repository.interfaces
         Task<bool> ClearCartAsync(long userId);
 
         Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity,decimal newTotalPrice);
+        Task<int> getCartItemsCount(long userId);
+
     }
 
 }

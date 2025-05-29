@@ -49,7 +49,7 @@ namespace ProductService.API.Services.serviceInterfaces
         /// <returns>
         /// A boolean value: returns <c>true</c> if the product was created successfully; otherwise, <c>false</c>.
         /// </returns>
-        Task<bool> createProduct(ProductDTO productdto);
+        Task<long> createProduct(ProductDTO productdto);
 
         /// <summary>
         /// Deletes an existing product asynchronously.

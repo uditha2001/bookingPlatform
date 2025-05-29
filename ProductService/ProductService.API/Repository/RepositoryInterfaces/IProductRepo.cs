@@ -58,7 +58,7 @@ namespace ProductService.API.Repository.RepositoryInterfaces
         /// </summary>
         /// <param name="productEntity">The <see cref="ProductEntity"/> to be saved.</param>
         /// <returns>A task that represents the asynchronous save operation.</returns>
-        Task saveProduct(ProductEntity productEntity);
+        Task<long> saveProduct(ProductEntity productEntity);
 
         /// <summary>
         /// Deletes a product with the specified ID if it was created internally 

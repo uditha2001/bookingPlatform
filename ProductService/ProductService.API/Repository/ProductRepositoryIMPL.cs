@@ -70,10 +70,11 @@ namespace ProductService.API.Repository
                 .Include(p => p.Contents).ToListAsync();
         }
 
-        public async Task saveProduct(ProductEntity productEntity)
+        public async Task<long> saveProduct(ProductEntity productEntity)
         {
             _dbContext.Products.Add(productEntity);
             await _dbContext.SaveChangesAsync();
+            return productEntity.Id;
         }
 
         public async  Task deleteProductAsync(long productId)

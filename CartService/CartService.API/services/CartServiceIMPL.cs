@@ -59,7 +59,7 @@ namespace CartService.API.services
 
                 foreach (CartItemEntity cart in items)
                 {
-                    CartItemDTO cartItemDTO=ToDTO(cart);
+                    CartItemDTO cartItemDTO = ToDTO(cart);
                     allCarts.Add(cartItemDTO);
 
                 }
@@ -87,7 +87,7 @@ namespace CartService.API.services
         {
             try
             {
-              
+
                 await _cartRepository.UpdateItemQuantityAsync(cartItemId, newQuantity, newTotalPrice);
                 return true;
             }
@@ -143,7 +143,7 @@ namespace CartService.API.services
             }
         }
 
-        
+
 
         public CartItemEntity ToEntity(CartItemDTO dto, long userId)
         {
@@ -153,7 +153,7 @@ namespace CartService.API.services
                 ProductId = dto.ProductId,
                 Quantity = dto.Quantity,
                 itemTotalPrice = dto.itemTotalPrice,
-                
+
             };
         }
 
@@ -169,6 +169,19 @@ namespace CartService.API.services
             };
         }
 
-      
+        public async Task<int> getCartItemsCount(long userId)
+        {
+            try
+            {
+                return await _cartRepository.getCartItemsCount(userId);
+            }
+            catch
+            (Exception ex)
+            {
+                throw new ApplicationException(
+                    "failed to get count"
+                    );
+            }
+        }
     }
 }

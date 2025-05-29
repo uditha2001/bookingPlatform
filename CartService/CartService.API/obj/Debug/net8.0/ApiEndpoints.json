@@ -49,6 +49,22 @@
   },
   {
     "ContainingType": "CartService.API.Controllers.CartController",
+    "Method": "getCartItemCount",
+    "RelativePath": "api/v1/cart/count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CartService.API.Controllers.CartController",
     "Method": "RemoveItemFromCart",
     "RelativePath": "api/v1/cart/remove/{itemId}",
     "HttpMethod": "DELETE",

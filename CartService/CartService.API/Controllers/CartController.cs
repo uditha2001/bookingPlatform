@@ -166,6 +166,20 @@ namespace CartService.API.Controllers
                 return StatusCode(500, "An error occurred while submitting the order.");
             }
         }
+        [HttpGet("count")]
+        public async Task<IActionResult> getCartItemCount([FromQuery]long userId)
+        {
+            try
+            {
+                
+                int count=await _cartService.getCartItemsCount(userId);
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while counting the count.");
+            }
+        }
 
     }
 }

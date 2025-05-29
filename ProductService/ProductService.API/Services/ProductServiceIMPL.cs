@@ -208,13 +208,13 @@ namespace ProductService.API.Services
             return productsList;
         }
 
-        public async Task<bool> createProduct(ProductDTO productdto)
+        public async Task<long> createProduct(ProductDTO productdto)
         {
             try
             {
                 ProductEntity productEntity = ProductDTOToEntity(productdto);
-                await _productRepo.saveProduct(productEntity);
-                return true;
+               long id= await _productRepo.saveProduct(productEntity);
+                return id;
 
 
 
@@ -222,7 +222,7 @@ namespace ProductService.API.Services
             catch (Exception e)
             {
                 Console.WriteLine($"Error updating product and attributes: {e.Message}");
-                return false;
+                throw new Exception("fiailed create product");
             }
         }
 
@@ -263,6 +263,7 @@ namespace ProductService.API.Services
             {
                 productDTO.Attributes = productEntity.Attributes.Select(attr => new ProductAttributesDTO
                 {
+                    attributeId=attr.AttributeId,
                     provider = attr.provider,
                     Key = attr.Key,
                     Value = attr.Value
@@ -274,6 +275,7 @@ namespace ProductService.API.Services
               
                 productDTO.Contents = productEntity.Contents.Select(content => new ProductContentDTO
                 {
+                    contentId=content.ContentId,
                     provider = content.provider,
                     Type = content.Type,
                     Url = content.Url,
