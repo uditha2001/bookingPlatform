@@ -1,4 +1,5 @@
-﻿using ProductService.API.Data;
+﻿using OrderService.API.DTO;
+using ProductService.API.Data;
 using ProductService.API.DTO;
 using ProductService.API.Models.Entities;
 
@@ -97,6 +98,10 @@ namespace ProductService.API.Repository.RepositoryInterfaces
         Task<ProductEntity> getExternalProductByIdAsync(long productId);
         Task<List<ProductEntity>> getOwnerProducts(long userId);
         Task<ProductEntity> GetProductById(long productId);
+        Task<ProductEntity> chekout(CheckoutDTO order);
+
+        Task<bool> checkInternalSystemProduct(long productId);
+        
 
 
 

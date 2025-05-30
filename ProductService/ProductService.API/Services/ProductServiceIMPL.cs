@@ -331,11 +331,11 @@ namespace ProductService.API.Services
         /// A boolean indicating whether the sale was successfully processed.
         /// Returns <c>true</c> if all products were successfully updated; otherwise, <c>false</c>.
         /// </returns>
-        public async Task<bool> SellProducts(List<OrderItemsDTO> orderDto)
+        public async Task<bool> SellProducts(List<CheckoutDTO> orderDto)
         {
             try
             {
-                foreach (OrderItemsDTO order in orderDto)
+                foreach (CheckoutDTO order in orderDto)
                 {
                     ProductEntity product = await _productRepo.getExternalProductByIdAsync(order.ProductId);
                     if (product != null)
@@ -481,6 +481,39 @@ namespace ProductService.API.Services
                 throw new Exception(
                     "failed to get products"
                     );
+            }
+        }
+
+        public async Task<bool> GetCheckout(CheckoutDTO order)
+        {
+            bool isProductInternal = await _productRepo.checkInternalSystemProduct(order.ProductId);
+            if (isProductInternal)
+            {
+                ProductEntity productEntity = await _productRepo.chekout(order);
+                if (productEntity.availableQuantity >= order.quantity)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                var json = JsonSerializer.Serialize(order);
+                var orderDetails = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("http://localhost:5008/api/v1/adapter/checkout", orderDetails);
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to update product: {response.StatusCode}");
+                    return false;
+                }
+
             }
         }
     }

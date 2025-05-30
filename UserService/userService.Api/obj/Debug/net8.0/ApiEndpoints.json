@@ -162,6 +162,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "checkoutOrders",
+    "RelativePath": "api/v1/product/checkout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "order",
+        "Type": "OrderService.API.DTO.CheckoutDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ProductService.API.Controllers.ProductContentController",
     "Method": "CreateContent",
     "RelativePath": "api/v1/product/content",
@@ -287,7 +303,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "System.Collections.Generic.List\u00601[[OrderService.API.DTO.OrderItemsDTO, ProductService.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[OrderService.API.DTO.CheckoutDTO, ProductService.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

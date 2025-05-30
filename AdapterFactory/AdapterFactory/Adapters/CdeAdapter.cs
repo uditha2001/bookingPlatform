@@ -95,10 +95,14 @@ namespace AdapterFactory.Adapters
                 return new List<ProductDTO>();
             }
         }
-        public string placeOrder()
+        public bool placeOrder()
         {
-            return "abc server submit the order";
+            return true;
         }
 
+        public bool checkout()
+        {
+            return true;
+        }
     }
 }

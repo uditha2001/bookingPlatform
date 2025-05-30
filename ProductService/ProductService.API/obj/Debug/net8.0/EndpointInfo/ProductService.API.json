@@ -134,7 +134,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             },
@@ -142,7 +142,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             },
@@ -150,7 +150,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             }
@@ -234,6 +234,37 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/checkout": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -510,17 +541,9 @@
   },
   "components": {
     "schemas": {
-      "OrderItemsDTO": {
+      "CheckoutDTO": {
         "type": "object",
         "properties": {
-          "orderItemId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "orderId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "quantity": {
             "type": "integer",
             "format": "int32"

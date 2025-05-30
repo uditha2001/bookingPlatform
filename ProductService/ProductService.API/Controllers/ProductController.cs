@@ -78,7 +78,7 @@ namespace ProductService.API.Controllers
         }
 
         [HttpPatch("sellProducts")]
-        public async Task<IActionResult> SellProducts([FromBody] List<OrderItemsDTO> request)
+        public async Task<IActionResult> SellProducts([FromBody] List<CheckoutDTO> request)
         {
             try
             {
@@ -144,6 +144,20 @@ namespace ProductService.API.Controllers
             try
             {
                 return Ok(await _iproductService.getOwnerProducts(userId));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in SellProducts: {e.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
+        [HttpPost("checkout")]
+        public async Task<IActionResult> checkoutOrders([FromBody] CheckoutDTO order)
+        {
+            try
+            {
+                
+                return Ok(await _iproductService.GetCheckout(order));
             }
             catch (Exception e)
             {

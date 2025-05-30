@@ -5,7 +5,8 @@ namespace AdapterFactory.Service
     public interface IAdapter
     {
         Task<List<ProductDTO>> GetProductContentsFromExternalServiceAsync();
-        string placeOrder();
+        bool placeOrder();
+        bool checkout();
 
     }
 

@@ -22,6 +22,7 @@ namespace AdapterFactory.Service
             _logger = logger;
         }
 
+
         public IAdapter GetAdapterById(string adapterId)
         {
             return adapterId.ToLower() switch
@@ -52,14 +53,50 @@ namespace AdapterFactory.Service
             return productLists.SelectMany(p => p).ToList();
         }
 
-        public async Task<String> placeOrder(OrderDTO order)
+        public async Task<bool> placeOrder(OrderDTO order)
         {
-           List<ProductDTO> products= new List<ProductDTO>();
-            foreach (OrderItemsDTO orderItems in order.items)
+            try
             {
-                _logger.LogInformation("Calling ProductService with ID: {ProductId}", orderItems.ProductId);
+                List<ProductDTO> products = new List<ProductDTO>();
+                foreach (OrderItemsDTO orderItems in order.items)
+                {
+                    _logger.LogInformation("Calling ProductService with ID: {ProductId}", orderItems.ProductId);
 
-                var response = await _httpClient.GetAsync($"http://localhost:5041/api/v1/product/byId?productId={orderItems.ProductId}");
+                    var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={orderItems.ProductId}");
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"Order submission failed. StatusCode: {response.StatusCode}");
+                    }
+
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    ProductDTO product = JsonSerializer.Deserialize<ProductDTO>(responseContent, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    IAdapter adapter = GetAdapterById(product.provider);
+                    adapter.placeOrder();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in checkoutOrder: {ex.Message}");
+                throw;
+            }
+
+
+
+        }
+
+        public async Task<bool> checkoutOrder(CheckoutDTO order)
+
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={order.ProductId}");
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -73,13 +110,15 @@ namespace AdapterFactory.Service
                 });
 
                 IAdapter adapter = GetAdapterById(product.provider);
-                adapter.placeOrder(); // assuming this does not need args
+                return adapter.checkout();
             }
-
-            return "final order confirm in extaernal system";
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error in checkoutOrder: {ex.Message}");
+                throw;
+            }
+           
+            
         }
-
-
-
     }
 }

@@ -17,7 +17,11 @@ namespace AdapterFactory.Adapters
             _httpClient = httpClient;
 
         }
-       
+
+        public bool checkout()
+        {
+            return true;
+        }
 
         public async Task<List<ProductDTO>> GetProductContentsFromExternalServiceAsync()
         {
@@ -102,9 +106,9 @@ namespace AdapterFactory.Adapters
             };
         }
 
-        public string placeOrder()
+        public bool placeOrder()
         {
-            return "abc server submit the order";
+            return true;
         }
 
 

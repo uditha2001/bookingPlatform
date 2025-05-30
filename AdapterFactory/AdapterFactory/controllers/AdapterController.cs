@@ -36,7 +36,33 @@ namespace AdapterFactory.controllers
         [HttpPost]
         public async  Task<IActionResult> placeOrder([FromBody] OrderDTO order)
         {
-            return Ok(await _adapterFactory.placeOrder(order));
+            try
+            {
+                bool res = await _adapterFactory.placeOrder(order);
+                return Ok(res);
+
+            }
+            catch (Exception e)
+            {
+                return  StatusCode(500, new { message = "An error occurred while fetching product contents.", error = e.Message });
+
+            }
+        }
+
+        [HttpPost("checkout")]
+        public async Task<IActionResult> checkout([FromBody] CheckoutDTO orderDetails)
+        {
+            try
+            {
+                bool res = await _adapterFactory.checkoutOrder(orderDetails);
+                return Ok(res);
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = "An error occurred while fetching product contents.", error = e.Message });
+
+            }
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderService.API.DTO;
 using ProductService.API.Data;
 using ProductService.API.DTO;
 using ProductService.API.Models.Entities;
@@ -137,6 +138,27 @@ namespace ProductService.API.Repository
         {
             return await _dbContext.Products.Include(p => p.Contents).Include(p => p.Attributes)
                          .FirstOrDefaultAsync(p => p.Id == productId);
+        }
+
+        public async Task<ProductEntity> chekout(CheckoutDTO order)
+        {
+            ProductEntity product = await _dbContext.Products.FirstOrDefaultAsync(p=>p.Id==order.ProductId);
+            if (product != null)
+            {
+                return product;
+            }
+            return new ProductEntity();
+
+        }
+
+        public async Task<bool> checkInternalSystemProduct(long productId)
+        {
+            ProductEntity product = await _dbContext.Products.FirstOrDefaultAsync(p=>p.Id==productId && p.Provider=="");
+            if (product == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
