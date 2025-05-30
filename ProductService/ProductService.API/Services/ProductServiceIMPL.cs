@@ -335,36 +335,46 @@ namespace ProductService.API.Services
         {
             try
             {
-                foreach (CheckoutDTO order in orderDto)
+                foreach (CheckoutDTO orders in orderDto)
                 {
-                    ProductEntity product = await _productRepo.getExternalProductByIdAsync(order.ProductId);
-                    if (product != null)
+                    ProductEntity product = await _productRepo.getExternalProductByIdAsync(orders.ProductId);
+                    bool isProductInternal = await _productRepo.checkInternalSystemProduct(orders.ProductId);
+                    if (product != null && isProductInternal)
                     {
-                        if (product.availableQuantity >= order.quantity)
+                        if (product.availableQuantity >= orders.quantity)
                         {
-                            await _productRepo.sellProducts(product.Id, (product.availableQuantity - order.quantity));
-                            if (!string.IsNullOrEmpty(product.Provider))
-                            {
-                                var json = JsonSerializer.Serialize(orderDto);
-                                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                                var response = await _httpClient.PutAsync("http://localhost:5008/api/v1/adapter", content);
-                                if (response.IsSuccessStatusCode)
-                                {
-                                    Console.WriteLine("Product updated successfully.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"Failed to update product: {response.StatusCode}");
-                                    return false;
-                                }
-
-                            }
-
+                            await _productRepo.sellProducts(product.Id, (product.availableQuantity - orders.quantity));
+                            return true;
                         }
                     }
                     else
                     {
-                        return false;
+                        
+                            var json = JsonSerializer.Serialize(orders);
+                            var order = new StringContent(json, Encoding.UTF8, "application/json");
+                            var response = await _httpClient.PostAsync($"http://localhost:5008/api/v1/Adapter", order);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                Console.WriteLine("Product updated successfully.");
+                            var responseBody = await response.Content.ReadAsStringAsync();
+
+                            if (bool.TryParse(responseBody, out bool isSuccess) && isSuccess)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Response was false or not a valid boolean.");
+                                return false;
+                            }
+                        }
+                            else
+                            {
+                                Console.WriteLine($"Failed to update product: {response.StatusCode}");
+                                return false;
+                            }
+
+                        
                     }
                 }
                 return true;

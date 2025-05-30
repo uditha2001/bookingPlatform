@@ -53,16 +53,14 @@ namespace AdapterFactory.Service
             return productLists.SelectMany(p => p).ToList();
         }
 
-        public async Task<bool> placeOrder(OrderDTO order)
+        public async Task<bool> placeOrder(CheckoutDTO order)
         {
             try
             {
                 List<ProductDTO> products = new List<ProductDTO>();
-                foreach (OrderItemsDTO orderItems in order.items)
-                {
-                    _logger.LogInformation("Calling ProductService with ID: {ProductId}", orderItems.ProductId);
+                    _logger.LogInformation("Calling ProductService with ID: {ProductId}", order.ProductId);
 
-                    var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={orderItems.ProductId}");
+                    var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={order.ProductId}");
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -74,12 +72,12 @@ namespace AdapterFactory.Service
                     {
                         PropertyNameCaseInsensitive = true
                     });
-
+                if (product.provider != "")
+                {
                     IAdapter adapter = GetAdapterById(product.provider);
-                    adapter.placeOrder();
+                     return  adapter.placeOrder();
                 }
-
-                return true;
+                    return true;
             }
             catch (Exception ex)
             {

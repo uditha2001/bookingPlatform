@@ -30,20 +30,7 @@ namespace OrderService.API.services
             {
                 OrderEntity orderentity = MapToEntity(orderDto);
                 await  _repo.CreateOrderAsync(orderentity);
-                var json = JsonSerializer.Serialize(orderDto);
-                var order = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"http://localhost:5008/api/v1/Adapter",order);
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new HttpRequestException($"Order submission failed. StatusCode: {response.StatusCode}");
-                }
-                else
-                {
-
-                    return 1;
-
-                }
-
+                return 1;
             }
             catch(Exception e) {
                 Console.WriteLine($"Error in CreateProductAsync: {e.Message}");

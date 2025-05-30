@@ -34,7 +34,7 @@ namespace AdapterFactory.controllers
             }
         }
         [HttpPost]
-        public async  Task<IActionResult> placeOrder([FromBody] OrderDTO order)
+        public async  Task<IActionResult> placeOrder([FromBody] CheckoutDTO order)
         {
             try
             {

@@ -52,3 +52,5 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.build.json
