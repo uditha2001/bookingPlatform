@@ -36,17 +36,7 @@ namespace ProductService.API.Controllers
             return Ok(contentList);
         }
 
-        /// <summary>
-        /// update a content,onl can update contents ,which created using internal system
-        /// </summary>
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateContent(long id, [FromBody] ProductContentDTO dto)
-        {
-            var result = await _productContentService.updateContent(dto, id);
-            if (!result)
-                return StatusCode(500, $"Failed to update content with ID {id}.");
-            return Ok($"Content with ID {id} updated successfully.");
-        }
+
         /// <summary>
         /// delete a content using it id,only can delete content ,which created using internal system
         /// </summary>

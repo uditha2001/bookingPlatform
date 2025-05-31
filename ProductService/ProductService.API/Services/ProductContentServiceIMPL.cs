@@ -89,19 +89,8 @@ namespace ProductService.API.Services
             }
         }
 
-        public async Task<bool> updateContent(ProductContentDTO productContentDTO, long contentId)
-        {
-            try
-            {
-                var entity = ToEntity(productContentDTO, contentId);
-                return await _repository.UpdateContentAsync(entity);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error updating product content with ContentId: {ContentId}", contentId);
-                return false;
-            }
-        }
+      
+
 
         public ProductContentDTO ToDTO(ProductContentEntity entity)
         {

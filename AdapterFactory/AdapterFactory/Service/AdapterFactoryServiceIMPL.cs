@@ -60,7 +60,7 @@ namespace AdapterFactory.Service
                 List<ProductDTO> products = new List<ProductDTO>();
                     _logger.LogInformation("Calling ProductService with ID: {ProductId}", order.ProductId);
 
-                    var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={order.ProductId}");
+                    var response = await _httpClient.GetAsync($"http://localhost:5041/api/v1/product/byId?productId={order.ProductId}");
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -94,7 +94,7 @@ namespace AdapterFactory.Service
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://localhost:7120/api/v1/product/byId?productId={order.ProductId}");
+                var response = await _httpClient.GetAsync($"http://localhost:5041/api/v1/product/byId?productId={order.ProductId}");
 
                 if (!response.IsSuccessStatusCode)
                 {

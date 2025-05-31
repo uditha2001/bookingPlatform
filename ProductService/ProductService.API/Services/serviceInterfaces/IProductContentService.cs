@@ -15,15 +15,7 @@ namespace ProductService.API.Services.serviceInterfaces
         /// </returns>
         public Task<bool> createContent(ProductContentDTO productContentDTO, long ProductId);
 
-        /// <summary>
-        /// Updates an existing product content entry using the specified content ID.only can update contents created using internal system
-        /// </summary>
-        /// <param name="productContentDTO">The data transfer object containing the updated content details.</param>
-        /// <param name="contentId">The ID of the content to be updated.</param>
-        /// <returns>
-        /// A task representing the asynchronous operation. Returns <c>true</c> if the content was updated successfully; otherwise, <c>false</c>.
-        /// </returns>
-        public Task<bool> updateContent(ProductContentDTO productContentDTO, long contentId);
+     
 
         /// <summary>
         /// Deletes a product content record and its associated file from the server.
