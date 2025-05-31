@@ -46,6 +46,25 @@ namespace ProductService.API.Services
         {
             try
             {
+                var content = await _repository.GetContentByIdAsync(id);
+                if (content == null)
+                {
+                    _logger.LogWarning("Content with ID {ContentId} not found", id);
+                    return false;
+                }
+
+                var wwwrootPath = _env.WebRootPath;
+                var filePath = Path.Combine(wwwrootPath, content.Url.Replace("/", Path.DirectorySeparatorChar.ToString()));
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+                else
+                {
+                    _logger.LogWarning("File not found at path {FilePath}", filePath);
+                }
+
                 return await _repository.DeleteContentByIdAsync(id);
             }
             catch (Exception ex)
@@ -54,6 +73,7 @@ namespace ProductService.API.Services
                 return false;
             }
         }
+
 
         public async Task<List<ProductContentDTO>> getAllContent(long productId)
         {

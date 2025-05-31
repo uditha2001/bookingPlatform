@@ -171,7 +171,7 @@ namespace ProductService.API.Repository.RepositoryInterfaces
         /// which indicates that the product was created internally rather than sourced externally.
         /// </remarks>
         Task<bool> checkInternalSystemProduct(long productId);
-        
+
 
 
 

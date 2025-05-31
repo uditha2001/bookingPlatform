@@ -43,5 +43,8 @@ namespace ProductService.API.Repository.RepositoryInterfaces
         /// The task result contains a list of <see cref="ProductContentEntity"/> objects associated with the product.
         /// </returns>
         Task<List<ProductContentEntity>> GetAllContentAsync(long productId);
+
+        Task<ProductContentEntity> GetContentByIdAsync(long id);
+
     }
 }
