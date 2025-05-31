@@ -42,6 +42,10 @@ namespace ProductService.API.Repository
             return await _dbContext.Content.Where(c=>c.ProductId==productId).ToListAsync();
         }
 
+        public async Task<ProductContentEntity> GetContentByIdAsync(long id)
+        {
+            return await _dbContext.Content.FirstOrDefaultAsync(pc => pc.ContentId == id);
+        }
 
         public async Task<bool> UpdateContentAsync(ProductContentEntity updatedContent)
         {

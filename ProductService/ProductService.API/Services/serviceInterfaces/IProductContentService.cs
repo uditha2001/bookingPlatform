@@ -26,12 +26,23 @@ namespace ProductService.API.Services.serviceInterfaces
         public Task<bool> updateContent(ProductContentDTO productContentDTO, long contentId);
 
         /// <summary>
-        /// Deletes a product content entry asynchronously by its ID.only can delete contents created using internal system 
+        /// Deletes a product content record and its associated file from the server.
         /// </summary>
         /// <param name="id">The ID of the product content to delete.</param>
         /// <returns>
-        /// A task representing the asynchronous operation. Returns <c>true</c> if the content was deleted successfully; otherwise, <c>false</c>.
+        /// A boolean indicating whether the deletion was successful.
+        /// Returns <c>true</c> if the content was found and deleted successfully;
+        /// otherwise, returns <c>false</c>.
         /// </returns>
+        /// <remarks>
+        /// The method first retrieves the content by ID from the database.
+        /// If found, it constructs the full file path using the `WebRootPath` and the content's relative URL.
+        /// The file is deleted from disk if it exists. Regardless of file existence,
+        /// the database entry is then removed.
+        /// </remarks>
+        /// <exception cref="Exception">
+        /// Logs and returns <c>false</c> if any unexpected error occurs during the deletion process.
+        /// </exception>
         public Task<bool> deleteContent(long id);
 
         /// <summary>
