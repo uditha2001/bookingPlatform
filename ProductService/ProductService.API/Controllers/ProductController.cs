@@ -165,7 +165,19 @@ namespace ProductService.API.Controllers
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
-        
+        [HttpPatch("updateProduct")]
+        public async Task<IActionResult> updaeProduct([FromBody] ProductDTO product)
+        {
+            try
+            {
+                return Ok(await _iproductService.updateProduct(product));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine($"Error in SellProducts: {e.Message}");
+                return StatusCode(500, "An error occurred while processing the request.");
+            }
+        }
 
     }
 }

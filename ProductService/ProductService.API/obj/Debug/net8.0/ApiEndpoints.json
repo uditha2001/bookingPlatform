@@ -308,5 +308,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "updaeProduct",
+    "RelativePath": "api/v1/product/updateProduct",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "product",
+        "Type": "ProductService.API.DTO.ProductDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

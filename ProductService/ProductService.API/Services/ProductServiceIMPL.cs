@@ -322,15 +322,7 @@ namespace ProductService.API.Services
 
         }
 
-        /// <summary>
-        /// Processes a product sale by updating the remaining item counts 
-        /// for each product listed in the order.
-        /// </summary>
-        /// <param name="orderDto">The order containing the list of products and their quantities to be sold.</param>
-        /// <returns>
-        /// A boolean indicating whether the sale was successfully processed.
-        /// Returns <c>true</c> if all products were successfully updated; otherwise, <c>false</c>.
-        /// </returns>
+       
         public async Task<bool> SellProducts(List<CheckoutDTO> orderDto)
         {
             try
@@ -526,5 +518,72 @@ namespace ProductService.API.Services
 
             }
         }
+
+        public async Task<bool> updateProduct(ProductDTO productDto)
+        {
+            try
+            {
+                var existingProduct = await _productRepo.GetProductIfExistsAsync(productDto);
+
+                if (existingProduct != null)
+                {
+                    var updatedProduct = ProductDTOToEntity(productDto);
+                    existingProduct.Name = updatedProduct.Name;
+                    existingProduct.Description = updatedProduct.Description;
+                    existingProduct.Price = updatedProduct.Price;
+                    existingProduct.Currency = updatedProduct.Currency;
+                    existingProduct.UpdatedAt = DateTime.UtcNow;
+                    existingProduct.originId = updatedProduct.originId;
+                    existingProduct.Provider = updatedProduct.Provider;
+                    existingProduct.availableQuantity = updatedProduct.availableQuantity;
+                    existingProduct.owner = updatedProduct.owner;
+
+                    await _productRepo.RemoveAllProductAttributesByProvider(existingProduct);
+                    await _productRepo.RemoveAllProductContentsWhereProviderNotEmpty(existingProduct);
+
+                    if (productDto.Attributes != null)
+                    {
+                        foreach (var attrDto in productDto.Attributes)
+                        {
+                            existingProduct.Attributes.Add(new ProductAttributesEntity
+                            {
+                                provider = attrDto.provider,
+                                Key = attrDto.Key,
+                                Value = attrDto.Value,
+                                ProductId = existingProduct.Id
+                            });
+                        }
+                    }
+
+                    if (productDto.Contents != null)
+                    {
+                        foreach (var contentDto in productDto.Contents)
+                        {
+                            existingProduct.Contents.Add(new ProductContentEntity
+                            {
+                                provider = contentDto.provider,
+                                Type = contentDto.Type,
+                                Url = contentDto.Url,
+                                Description = contentDto.Description,
+                                ProductId = existingProduct.Id
+                            });
+                        }
+                    }
+                    await _productRepo.UpdateProductAsync(existingProduct);
+                    return true;
+
+                }
+                return false;
+               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    "error occur");
+            }
+            
+
+        
+    }
     }
 }

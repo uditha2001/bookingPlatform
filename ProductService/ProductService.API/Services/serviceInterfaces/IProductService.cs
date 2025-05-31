@@ -79,11 +79,12 @@ namespace ProductService.API.Services.serviceInterfaces
         Task<List<ProductDTO>> getOwnerProducts(long userId);
         Task<List<ProductCategoryDTO>> getAllCategories();
 
+       
         Task<bool> SellProducts(List<CheckoutDTO> orderDto);
         Task<ProductDTO> GetExtranalProductById(long productId);
         Task<ProductDTO> GetProductById(long productId);
         Task<bool> GetCheckout(CheckoutDTO order);
-
+        Task<bool> updateProduct(ProductDTO product);
 
     }
 }

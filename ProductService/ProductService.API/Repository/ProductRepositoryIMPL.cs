@@ -24,7 +24,6 @@ namespace ProductService.API.Repository
         public async Task RemoveAllProductAttributesByProvider(ProductEntity existingProduct)
         {
             var filteredAttributes = existingProduct.Attributes
-                .Where(attr => !string.IsNullOrEmpty(attr.provider))  
                 .ToList();
 
             _dbContext.productAttribute.RemoveRange(filteredAttributes);
@@ -35,7 +34,6 @@ namespace ProductService.API.Repository
         public async Task RemoveAllProductContentsWhereProviderNotEmpty(ProductEntity existingProduct)
         {
             var filteredContents = existingProduct.Contents
-                .Where(content => !string.IsNullOrEmpty(content.provider))
                 .ToList();
 
             _dbContext.Content.RemoveRange(filteredContents);
