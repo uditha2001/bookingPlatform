@@ -111,6 +111,7 @@ namespace ProductService.API.Repository
             
         }
 
+
         public async Task<ProductEntity> getExternalProductByIdAsync(long productId)
         {
             return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == productId && !string.IsNullOrEmpty(p.Provider));
@@ -120,6 +121,8 @@ namespace ProductService.API.Repository
         {
             return await _dbContext.productCategory.ToListAsync();
         }
+
+
         public async Task<List<ProductEntity>> getOwnerProducts(long userId)
         {
             var userIdStr = userId.ToString();

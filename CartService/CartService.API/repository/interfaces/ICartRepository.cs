@@ -41,7 +41,26 @@ namespace CartService.API.repository.interfaces
         /// <returns>True if cleared successfully; otherwise false.</returns>
         Task<bool> ClearCartAsync(long userId);
 
+        /// <summary>
+        /// Updates the quantity and total price of a specific cart item.
+        /// </summary>
+        /// <param name="cartItemId">The unique identifier of the cart item to update.</param>
+        /// <param name="newQuantity">The new quantity to set for the cart item.</param>
+        /// <param name="newTotalPrice">The new total price corresponding to the updated quantity.</param>
+        /// <returns>
+        /// A <see cref="Task{Boolean}"/> representing the asynchronous operation.
+        /// Returns <c>true</c> if the update was successful; otherwise, <c>false</c> if the cart item was not found.
+        /// </returns>
         Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity,decimal newTotalPrice);
+
+        /// <summary>
+        /// Gets the total number of cart items for a specified user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose cart item count is to be retrieved.</param>
+        /// <returns>
+        /// A <see cref="Task{Int32}"/> representing the asynchronous operation, 
+        /// containing the total count of cart items for the user.
+        /// </returns>
         Task<int> getCartItemsCount(long userId);
 
     }

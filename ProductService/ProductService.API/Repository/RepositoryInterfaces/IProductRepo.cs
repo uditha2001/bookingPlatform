@@ -81,25 +81,95 @@ namespace ProductService.API.Repository.RepositoryInterfaces
         Task<List<ProductEntity>> getInternalSystemProducts();
 
         /// <summary>
-        /// Updates the remaining item count for a specific product.
+        /// Updates the available quantity of a product after a sale.
         /// </summary>
         /// <param name="productId">The ID of the product to update.</param>
-        /// <param name="restItemsCount">The new remaining count to set for the product.</param>
+        /// <param name="restItemsCount">The new available quantity after the sale.</param>
         /// <returns>
-        /// A boolean indicating whether the update was successful.
-        /// Returns <c>true</c> if the product was found and updated; otherwise, <c>false</c>.
+        /// A <see cref="Task{Boolean}"/> indicating whether the update was successful (true) or not (false).
         /// </returns>
-
+        /// <remarks>
+        /// Fetches the product by ID from the database, updates its available quantity,
+        /// then saves the changes asynchronously.
+        /// </remarks>
         Task<bool> sellProducts(long productId, int restItemsCount);
 
+        /// <summary>
+        /// Retrieves all product categories from the database.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="Task{List{ProductCategoryEntity}}"/> containing a list of all product category entities.
+        /// </returns>
+        /// <remarks>
+        /// This method fetches all records from the productCategory table asynchronously.
+        /// </remarks>
         Task<List<ProductCategoryEntity>> getAllCategories();
 
-
+        /// <summary>
+        /// Retrieves an external product by its ID.
+        /// </summary>
+        /// <param name="productId">The ID of the product to retrieve.</param>
+        /// <returns>
+        /// A <see cref="Task{ProductEntity}"/> representing the asynchronous operation,
+        /// containing the product entity if found and the product has a non-empty Provider; otherwise, null.
+        /// </returns>
+        /// <remarks>
+        /// This method queries the database for a product with the specified ID where the Provider field is not null or empty,
+        /// indicating that the product is from an external source.
+        /// </remarks>
         Task<ProductEntity> getExternalProductByIdAsync(long productId);
+
+        /// <summary>
+        /// Retrieves all products created by a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose products are to be retrieved.</param>
+        /// <returns>
+        /// A <see cref="Task{List{ProductEntity}}"/> containing a list of products owned by the specified user,
+        /// including their attributes and contents.
+        /// </returns>
+        /// <remarks>
+        /// This method queries the database asynchronously, including related Attributes and Contents entities,
+        /// filtering products by the creator's user ID.
+        /// </remarks>
         Task<List<ProductEntity>> getOwnerProducts(long userId);
+
+        /// <summary>
+        /// Retrieves a product by its ID, including its associated contents and attributes.
+        /// </summary>
+        /// <param name="productId">The ID of the product to retrieve.</param>
+        /// <returns>
+        /// A <see cref="Task{ProductEntity}"/> representing the asynchronous operation,
+        /// containing the product entity if found; otherwise, null.
+        /// </returns>
+        /// <remarks>
+        /// This method fetches the product along with its related Contents and Attributes entities from the database asynchronously.
+        /// </remarks>
         Task<ProductEntity> GetProductById(long productId);
+
+        /// <summary>
+        /// Retrieves a product entity based on the provided checkout order details.
+        /// </summary>
+        /// <param name="order">A <see cref="CheckoutDTO"/> containing the product ID to checkout.</param>
+        /// <returns>
+        /// A <see cref="Task{ProductEntity}"/> representing the asynchronous operation,
+        /// containing the product entity if found; otherwise, a new empty <see cref="ProductEntity"/>.
+        /// </returns>
+        /// <remarks>
+        /// This method looks up the product by its ID from the checkout order.
+        /// </remarks>
         Task<ProductEntity> chekout(CheckoutDTO order);
 
+        /// <summary>
+        /// Checks if a product with the given ID is created within the internal system.
+        /// </summary>
+        /// <param name="productId">The ID of the product to check.</param>
+        /// <returns>
+        /// A <see cref="Task{Boolean}"/> indicating whether the product exists internally (true) or not (false).
+        /// </returns>
+        /// <remarks>
+        /// This method queries the database for a product with the specified ID where the Provider field is empty,
+        /// which indicates that the product was created internally rather than sourced externally.
+        /// </remarks>
         Task<bool> checkInternalSystemProduct(long productId);
         
 

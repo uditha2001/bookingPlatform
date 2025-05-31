@@ -62,6 +62,16 @@ namespace CartService.API.services.interfaces
         /// <param name="userId">The unique identifier of the user.</param>
         /// <returns>A task that represents the asynchronous operation. Returns true if the order was submitted successfully.</returns>
         Task<bool> SubmitOrderAsync(long userId);
+
+        /// <summary>
+        /// Retrieves the total number of items in the cart for a given user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose cart items count is requested.</param>
+        /// <returns>
+        /// A <see cref="Task{Int32}"/> representing the asynchronous operation, 
+        /// containing the total count of cart items for the specified user.
+        /// </returns>
+        /// <exception cref="ApplicationException">Thrown when the count retrieval fails.</exception>
         Task<int> getCartItemsCount(long userId);
 
     }
