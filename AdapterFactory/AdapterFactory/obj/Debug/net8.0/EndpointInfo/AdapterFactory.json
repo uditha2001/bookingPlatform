@@ -24,17 +24,48 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderDTO"
+                "$ref": "#/components/schemas/CheckoutDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderDTO"
+                "$ref": "#/components/schemas/CheckoutDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/OrderDTO"
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Adapter/checkout": {
+      "post": {
+        "tags": [
+          "Adapter"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
               }
             }
           }
@@ -49,42 +80,9 @@
   },
   "components": {
     "schemas": {
-      "OrderDTO": {
+      "CheckoutDTO": {
         "type": "object",
         "properties": {
-          "orderId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "totalOrderprice": {
-            "type": "number",
-            "format": "double"
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrderItemsDTO"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "OrderItemsDTO": {
-        "type": "object",
-        "properties": {
-          "orderItemId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "orderId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "quantity": {
             "type": "integer",
             "format": "int32"

@@ -7,7 +7,8 @@ namespace AdapterFactory.Service
     {
         public IAdapter GetAdapterById(string adapterId);
         Task<List<ProductDTO>> getAllProducts();
-        Task<string> placeOrder(OrderDTO order);
+        Task<bool> placeOrder(CheckoutDTO order);
+        Task<bool> checkoutOrder(CheckoutDTO order);
 
     }
     

@@ -13,6 +13,7 @@ namespace ProductService.API.Data
         public DbSet<ProductContentEntity> Content { get; set; }
         public DbSet<ProductAttributesEntity> productAttribute { get; set; }
 
+        public DbSet<ProductCategoryEntity> productCategory { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,9 +28,14 @@ namespace ProductService.API.Data
 
             modelBuilder.Entity<ProductEntity>()
                 .HasMany(p => p.Contents)
-                .WithOne(c => c.ProductEntity)
+                .WithOne(c => c.Product)
                 .HasForeignKey(c => c.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ProductEntity>()
+           .HasOne(p => p.ProductCategory)
+           .WithMany(c => c.Product)
+           .HasForeignKey(p => p.ProductCategoryId);
+
 
         }
 

@@ -16,8 +16,8 @@ namespace CartService.API.repository.interfaces
         /// Adds a new item to the cart or updates the quantity if it already exists.
         /// </summary>
         /// <param name="item">The cart item entity.</param>
-        /// <returns>The updated or newly added cart item entity.</returns>
-        Task<CartItemEntity> AddOrUpdateCartItemAsync(CartItemEntity item);
+        /// <returns>The boolean value .</returns>
+        Task<bool> AddOrUpdateCartItemAsync(CartItemEntity item);
 
         /// <summary>
         /// Updates the quantity of a specific cart item.
@@ -42,10 +42,27 @@ namespace CartService.API.repository.interfaces
         Task<bool> ClearCartAsync(long userId);
 
         /// <summary>
-        /// Calculates the total value of all items in the cart for a user.
+        /// Updates the quantity and total price of a specific cart item.
         /// </summary>
-        /// <param name="userId">The user's ID.</param>
-        /// <returns>The total price of the cart.</returns>
+        /// <param name="cartItemId">The unique identifier of the cart item to update.</param>
+        /// <param name="newQuantity">The new quantity to set for the cart item.</param>
+        /// <param name="newTotalPrice">The new total price corresponding to the updated quantity.</param>
+        /// <returns>
+        /// A <see cref="Task{Boolean}"/> representing the asynchronous operation.
+        /// Returns <c>true</c> if the update was successful; otherwise, <c>false</c> if the cart item was not found.
+        /// </returns>
+        Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity,decimal newTotalPrice);
+
+        /// <summary>
+        /// Gets the total number of cart items for a specified user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose cart item count is to be retrieved.</param>
+        /// <returns>
+        /// A <see cref="Task{Int32}"/> representing the asynchronous operation, 
+        /// containing the total count of cart items for the user.
+        /// </returns>
+        Task<int> getCartItemsCount(long userId);
+
     }
 
 }

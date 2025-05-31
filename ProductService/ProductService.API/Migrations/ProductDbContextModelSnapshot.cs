@@ -52,6 +52,27 @@ namespace ProductService.API.Migrations
                     b.ToTable("productEntity");
                 });
 
+            modelBuilder.Entity("ProductService.API.Models.Entities.ProductCategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("productCategory");
+                });
+
             modelBuilder.Entity("ProductService.API.Models.Entities.ProductContentEntity", b =>
                 {
                     b.Property<long>("ContentId")
@@ -113,6 +134,9 @@ namespace ProductService.API.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProductCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Provider")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -123,6 +147,9 @@ namespace ProductService.API.Migrations
 
                     b.Property<int>("availableQuantity")
                         .HasColumnType("int");
+
+                    b.Property<long>("createdBy")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("originId")
                         .HasColumnType("bigint");
@@ -135,6 +162,8 @@ namespace ProductService.API.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products");
                 });
@@ -159,6 +188,22 @@ namespace ProductService.API.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductEntity");
+                });
+
+            modelBuilder.Entity("ProductService.API.Models.Entities.ProductEntity", b =>
+                {
+                    b.HasOne("ProductService.API.Models.Entities.ProductCategoryEntity", "ProductCategory")
+                        .WithMany("Product")
+                        .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductCategory");
+                });
+
+            modelBuilder.Entity("ProductService.API.Models.Entities.ProductCategoryEntity", b =>
+                {
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ProductService.API.Models.Entities.ProductEntity", b =>

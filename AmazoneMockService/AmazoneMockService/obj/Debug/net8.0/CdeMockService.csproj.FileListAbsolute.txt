@@ -29,3 +29,4 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\AmazoneMockService\AmazoneMockService\obj\Debug\net8.0\CdeMockService.pdb
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\AmazoneMockService\AmazoneMockService\obj\Debug\net8.0\CdeMockService.genruntimeconfig.cache
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\AmazoneMockService\AmazoneMockService\obj\Debug\net8.0\ref\CdeMockService.dll
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\AmazoneMockService\AmazoneMockService\obj\Debug\net8.0\CdeMockService.sourcelink.json

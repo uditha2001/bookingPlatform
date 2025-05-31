@@ -12,7 +12,7 @@ namespace AbcMockService.DTO
         public int availableQuantity { get; set; } = 0;
 
         public string Currency { get; set; }
-        public Guid CategoryId { get; set; }
+        public int ProductCategoryId { get; set; }
         public List<ProductAttributesDTO> Attributes { get; set; } = new();
         public List<ProductContentDTO> Contents { get; set; } = new();
     }

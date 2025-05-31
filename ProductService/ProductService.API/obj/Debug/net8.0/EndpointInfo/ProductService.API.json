@@ -134,7 +134,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             },
@@ -142,7 +142,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             },
@@ -150,7 +150,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/OrderItemsDTO"
+                  "$ref": "#/components/schemas/CheckoutDTO"
                 }
               }
             }
@@ -178,6 +178,124 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/productById": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/category": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/ownerProducts": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/checkout": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/product/updateProduct": {
+      "patch": {
+        "tags": [
+          "Product"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -340,19 +458,23 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProductContentDTO"
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "images": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -450,17 +572,9 @@
   },
   "components": {
     "schemas": {
-      "OrderItemsDTO": {
+      "CheckoutDTO": {
         "type": "object",
         "properties": {
-          "orderItemId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "orderId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "quantity": {
             "type": "integer",
             "format": "int32"
@@ -559,9 +673,13 @@
             "type": "string",
             "nullable": true
           },
-          "categoryId": {
-            "type": "string",
-            "format": "uuid"
+          "createdBy": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productCategoryId": {
+            "type": "integer",
+            "format": "int32"
           },
           "attributes": {
             "type": "array",

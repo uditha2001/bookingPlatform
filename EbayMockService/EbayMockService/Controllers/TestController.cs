@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductService.API.DTO;
 
-
 namespace AbcMockService.Controllers
 {
     [ApiController]
@@ -13,27 +12,26 @@ namespace AbcMockService.Controllers
         public IActionResult GetMockData()
         {
             var products = new List<AbcDTO>();
-
             for (int i = 1; i <= 20; i++)
             {
                 var product = new AbcDTO
                 {
                     originId = i,
-                    Name = $"Item {Convert.ToChar(64 + i)}", // Item A, Item B, etc.
+                    Name = $"Item {Convert.ToChar(64 + i)}",
                     Description = $"Description for Item {Convert.ToChar(64 + i)}",
                     Price = 50m + i * 10,
                     Currency = "USD",
-                    CategoryId = Guid.NewGuid(),
-                    owner ="owner "+i,
-                    availableQuantity = 10+i,
-                    Attributes = new List<ProductAttributesDTO>(), // empty for now
+                    ProductCategoryId = (i % 5) + 1,
+                    owner = "owner " + i,
+                    availableQuantity = 10 + i,
+                    Attributes = new List<ProductAttributesDTO>(),
                     Contents = new List<ProductContentDTO>
                     {
                         new ProductContentDTO
                         {
                             contentId = 1000 + i,
                             Type = "Image",
-                            Url = $"http://example.com/image{Convert.ToChar(64 + i)}.jpg",
+                            Url = $"https://picsum.photos/seed/{i}/300/200",
                             Description = $"Image content for Item {Convert.ToChar(64 + i)}"
                         }
                     }
@@ -48,7 +46,7 @@ namespace AbcMockService.Controllers
         [HttpPost]
         public IActionResult placeOrder()
         {
-            return Ok("order placement sucessfull");
+            return Ok("Order placement successful");
         }
     }
 }

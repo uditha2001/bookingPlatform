@@ -17,7 +17,11 @@ namespace AdapterFactory.Adapters
             _httpClient = httpClient;
 
         }
-       
+
+        public bool checkout()
+        {
+            return true;
+        }
 
         public async Task<List<ProductDTO>> GetProductContentsFromExternalServiceAsync()
         {
@@ -57,7 +61,7 @@ namespace AdapterFactory.Adapters
                 Price = abcDto.Price,
                 owner=abcDto.owner,
                 Currency = abcDto.Currency,
-                CategoryId = abcDto.CategoryId,
+                ProductCategoryId = abcDto.ProductCategoryId,
                 Attributes = abcDto.Attributes?.Select(a => new ProductAttributesDTO
                 {
                     Key = a.Key,
@@ -86,7 +90,7 @@ namespace AdapterFactory.Adapters
                 Price = productDto.Price,
                 owner=productDto.owner,
                 Currency = productDto.Currency,
-                CategoryId = productDto.CategoryId,
+                ProductCategoryId = productDto.ProductCategoryId,
                 Attributes = productDto.Attributes?.Select(a => new ProductAttributesDTO
                 {
                     Key = a.Key,
@@ -102,9 +106,9 @@ namespace AdapterFactory.Adapters
             };
         }
 
-        public string placeOrder()
+        public bool placeOrder()
         {
-            return "abc server submit the order";
+            return true;
         }
 
 

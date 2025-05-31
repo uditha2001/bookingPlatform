@@ -54,7 +54,13 @@ namespace CartService.API.Controllers
                     return BadRequest("Cart item cannot be null.");
 
                 var updatedCartItem = await _cartService.AddItemToCartAsync(item);
-                return Ok(updatedCartItem);
+                if (updatedCartItem)
+                {
+                    return Ok(updatedCartItem);
+
+                }
+                return StatusCode(500, "An error occurred while adding the item to the cart.");
+
             }
             catch (Exception)
             {
@@ -78,7 +84,7 @@ namespace CartService.API.Controllers
                 bool allUpdated = true;
                 foreach (var update in updateItemLists)
                 {
-                    var result = await _cartService.UpdateItemQuantityAsync(update.CartItemId, update.NewQuantity);
+                    var result = await _cartService.UpdateItemQuantityAsync(update.CartItemId, update.NewQuantity,update.newTotalPrice);
                     if (!result)
                     {
                         allUpdated = false;
@@ -158,6 +164,29 @@ namespace CartService.API.Controllers
             catch (Exception)
             {
                 return StatusCode(500, "An error occurred while submitting the order.");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the total number of items in the shopping cart for a specified user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose cart item count is requested.</param>
+        /// <returns>
+        /// An <see cref="IActionResult"/> containing the count of cart items as an integer.
+        /// Returns HTTP 200 with the count on success, or HTTP 500 if an error occurs.
+        /// </returns>
+        [HttpGet("count")]
+        public async Task<IActionResult> getCartItemCount([FromQuery]long userId)
+        {
+            try
+            {
+                
+                int count=await _cartService.getCartItemsCount(userId);
+                return Ok(count);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while counting the count.");
             }
         }
 

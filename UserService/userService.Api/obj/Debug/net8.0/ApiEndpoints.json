@@ -8,7 +8,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "productDto",
+        "Name": "newProduct",
         "Type": "ProductService.API.DTO.ProductDTO",
         "IsRequired": true
       }
@@ -137,7 +137,7 @@
   },
   {
     "ContainingType": "ProductService.API.Controllers.ProductController",
-    "Method": "getProductById",
+    "Method": "getExternalProductById",
     "RelativePath": "api/v1/product/byId",
     "HttpMethod": "GET",
     "IsController": true,
@@ -152,6 +152,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getAllCategories",
+    "RelativePath": "api/v1/product/category",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "checkoutOrders",
+    "RelativePath": "api/v1/product/checkout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "order",
+        "Type": "OrderService.API.DTO.CheckoutDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ProductService.API.Controllers.ProductContentController",
     "Method": "CreateContent",
     "RelativePath": "api/v1/product/content",
@@ -160,13 +186,13 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "ProductService.API.DTO.ProductContentDTO",
-        "IsRequired": true
-      },
-      {
         "Name": "productId",
         "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "images",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
         "IsRequired": false
       }
     ],
@@ -237,6 +263,38 @@
   },
   {
     "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getOwnerProducts",
+    "RelativePath": "api/v1/product/ownerProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "getProductsById",
+    "RelativePath": "api/v1/product/productById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
     "Method": "SellProducts",
     "RelativePath": "api/v1/product/sellProducts",
     "HttpMethod": "PATCH",
@@ -245,7 +303,23 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "System.Collections.Generic.List\u00601[[OrderService.API.DTO.OrderItemsDTO, ProductService.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[OrderService.API.DTO.CheckoutDTO, ProductService.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProductService.API.Controllers.ProductController",
+    "Method": "updaeProduct",
+    "RelativePath": "api/v1/product/updateProduct",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "product",
+        "Type": "ProductService.API.DTO.ProductDTO",
         "IsRequired": true
       }
     ],

@@ -17,6 +17,18 @@ builder.Services.AddReverseProxy()
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IAuthService, AuthServiceIMPL>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -35,8 +47,8 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 
-app.UseHttpsRedirection();
-
+//app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -52,8 +64,8 @@ app.MapReverseProxy(proxyPipeline =>
             "/api/v1/user/login",
             "/api/v1/user/register",
             "/api/v1/product/allProducts",
+            "/uploads",
             "/swagger"
-            // Add other public paths here as needed
         };
 
         bool isPublic = publicPaths.Any(p => path.StartsWithSegments(p, StringComparison.OrdinalIgnoreCase));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using userService.Api.DTO;
 using userService.Api.entity;
@@ -38,20 +39,21 @@ namespace userService.Api.service
             return ToDTO(user);
         }
 
-        public async Task<bool> loginUserAsync(string userName, string password)
+        public async Task<UserDTO> loginUserAsync(string userName, string password)
         {
             UserEntity user = await _userRepository.loginUserAsync(userName, password);
             if (user == null)
-                return false;
+                throw new Exception("user not found");
 
             bool isPasswordVailid = BCrypt.Net.BCrypt.Verify(password,user.password);
             if (!isPasswordVailid)
             {
-                return false;
+                throw new Exception("invailid password");
             }
             else
             {
-                return true;
+                UserDTO userDto=ToDTO(user);
+                return userDto ;
             }
             
         }

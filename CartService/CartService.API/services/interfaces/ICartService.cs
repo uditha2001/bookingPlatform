@@ -16,8 +16,8 @@ namespace CartService.API.services.interfaces
         /// Adds an item to the user's cart. If the item already exists, its quantity will be increased.
         /// </summary>
         /// <param name="item">The cart item to be added.</param>
-        /// <returns>The updated cart.</returns>
-        Task<CartItemDTO> AddItemToCartAsync(CartItemDTO item);
+        /// <returns>the bool value.</returns>
+        Task<bool> AddItemToCartAsync(CartItemDTO item);
 
         /// <summary>
         /// Updates the quantity of a specific item in the cart.
@@ -25,7 +25,7 @@ namespace CartService.API.services.interfaces
         /// <param name="cartItemId">The ID of the cart item.</param>
         /// <param name="newQuantity">The new quantity to be set.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity);
+        Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity,decimal newTotalPrice);
 
         /// <summary>
         /// Removes a specific item from the cart.
@@ -62,6 +62,17 @@ namespace CartService.API.services.interfaces
         /// <param name="userId">The unique identifier of the user.</param>
         /// <returns>A task that represents the asynchronous operation. Returns true if the order was submitted successfully.</returns>
         Task<bool> SubmitOrderAsync(long userId);
+
+        /// <summary>
+        /// Retrieves the total number of items in the cart for a given user.
+        /// </summary>
+        /// <param name="userId">The ID of the user whose cart items count is requested.</param>
+        /// <returns>
+        /// A <see cref="Task{Int32}"/> representing the asynchronous operation, 
+        /// containing the total count of cart items for the specified user.
+        /// </returns>
+        /// <exception cref="ApplicationException">Thrown when the count retrieval fails.</exception>
+        Task<int> getCartItemsCount(long userId);
 
     }
 

@@ -186,3 +186,5 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\UserService\userService.Api\bin\Debug\net8.0\ProductService.API.pdb
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\UserService\userService.Api\obj\Debug\net8.0\userService.Api.sourcelink.json
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\UserService\userService.Api\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\UserService\userService.Api\bin\Debug\net8.0\ProductService.API.staticwebassets.runtime.json
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\UserService\userService.Api\bin\Debug\net8.0\userService.Api.staticwebassets.runtime.json

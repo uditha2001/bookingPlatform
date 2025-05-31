@@ -168,7 +168,6 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Quartz.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Quartz.Extensions.DependencyInjection.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Quartz.Extensions.Hosting.dll
-C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
@@ -179,3 +178,5 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Polly.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\Polly.Extensions.Http.dll
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\ProductService.API.sourcelink.json
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\ProductService\ProductService.API\bin\Debug\net8.0\ProductService.API.staticwebassets.runtime.json

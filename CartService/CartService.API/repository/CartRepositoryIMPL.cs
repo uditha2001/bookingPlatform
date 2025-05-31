@@ -12,7 +12,7 @@ namespace CartService.API.repository
         {
             _dbContext = dbContext;
         }
-        public async Task<CartItemEntity> AddOrUpdateCartItemAsync(CartItemEntity item)
+        public async Task<bool> AddOrUpdateCartItemAsync(CartItemEntity item)
         {
             CartItemEntity entity = await _dbContext.cartItems.FirstOrDefaultAsync(i => i.UserId == item.UserId && i.ProductId == item.ProductId);
             if (entity == null)
@@ -26,7 +26,7 @@ namespace CartService.API.repository
                 _dbContext.cartItems.Update(entity);
             }
             await _dbContext.SaveChangesAsync();
-            return entity;
+            return true;
         }
 
         public async Task<bool> ClearCartAsync(long userId)
@@ -47,6 +47,15 @@ namespace CartService.API.repository
             return cartItems;
         }
 
+        public async Task<int> getCartItemsCount(long userId)
+        {
+            return await _dbContext.cartItems
+                .Where(ci => ci.UserId == userId)
+                .CountAsync();
+        }
+
+
+
         public async Task<bool> RemoveItemFromCartAsync(long cartItemId)
         {
             CartItemEntity entity = await _dbContext.cartItems.FirstOrDefaultAsync(i => i.cartItemId == cartItemId);
@@ -59,9 +68,22 @@ namespace CartService.API.repository
             return true;
         }
 
-        //public async Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<bool> UpdateItemQuantityAsync(long cartItemId, int newQuantity, decimal newTotalPrice)
+        {
+            CartItemEntity entity = await _dbContext.cartItems.FirstOrDefaultAsync(i => i.cartItemId == cartItemId);
+
+            if (entity == null)
+            {
+                return false; 
+            }
+
+            entity.Quantity = newQuantity;
+            entity.itemTotalPrice = newTotalPrice;
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
     }
 }

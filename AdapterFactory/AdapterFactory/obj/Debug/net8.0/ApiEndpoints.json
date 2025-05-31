@@ -19,7 +19,23 @@
     "Parameters": [
       {
         "Name": "order",
-        "Type": "OrderService.API.DTO.OrderDTO",
+        "Type": "OrderService.API.DTO.CheckoutDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdapterFactory.controllers.AdapterController",
+    "Method": "checkout",
+    "RelativePath": "api/v1/Adapter/checkout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderDetails",
+        "Type": "OrderService.API.DTO.CheckoutDTO",
         "IsRequired": true
       }
     ],

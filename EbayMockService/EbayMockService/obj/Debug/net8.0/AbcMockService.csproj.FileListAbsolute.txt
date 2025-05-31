@@ -29,3 +29,4 @@ C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\micr
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\EbayMockService\EbayMockService\obj\Debug\net8.0\AbcMockService.pdb
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\EbayMockService\EbayMockService\obj\Debug\net8.0\AbcMockService.genruntimeconfig.cache
 C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\EbayMockService\EbayMockService\obj\Debug\net8.0\ref\AbcMockService.dll
+C:\Users\int.uditha\OneDrive - Creative Software (Pvt) Ltd\Desktop\Projects\microServicePrac\bookingPlatform\EbayMockService\EbayMockService\obj\Debug\net8.0\AbcMockService.sourcelink.json

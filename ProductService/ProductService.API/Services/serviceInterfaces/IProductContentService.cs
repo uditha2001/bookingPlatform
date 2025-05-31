@@ -59,6 +59,22 @@ namespace ProductService.API.Services.serviceInterfaces
         /// <returns>A <see cref="ProductContentEntity"/> object containing the mapped data.</returns>
         ProductContentEntity ToEntity(ProductContentDTO dto, long productId);
 
+        /// <summary>
+        /// Saves a list of product images to the server and associates them with the specified product.
+        /// </summary>
+        /// <param name="productId">The ID of the product to associate the images with.</param>
+        /// <param name="images">A list of image files to be saved.</param>
+        /// <returns>
+        /// A <see cref="Task{Boolean}"/> indicating whether the images were successfully saved (true) or not (false).
+        /// </returns>
+        /// <remarks>
+        /// This method saves each image to a folder path structured as "uploads/products/{productId}" under the web root directory.
+        /// It generates a unique filename for each image to avoid conflicts, copies the file to the destination,
+        /// and creates a corresponding ProductContentDTO to associate with the product.
+        /// If the provided images list is null or empty, the method returns false.
+        /// </remarks>
+        Task<bool> SaveProductImagesAsync(long productId, List<IFormFile> images);
+
 
     }
 }

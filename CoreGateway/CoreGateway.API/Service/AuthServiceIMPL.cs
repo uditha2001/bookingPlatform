@@ -3,8 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using static System.Net.WebRequestMethods;
-
+using CoreGateway.API.dto;
 namespace CoreGateway.API.Service
 {
     public class AuthServiceIMPL : IAuthService
@@ -30,7 +29,6 @@ namespace CoreGateway.API.Service
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var token = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
@@ -41,7 +39,7 @@ namespace CoreGateway.API.Service
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<String> ValidateUserCredentials(string userName, string password)
+        public async Task<TokenDTO> ValidateUserCredentials(string userName, string password)
         {
             try
             {
@@ -50,19 +48,17 @@ namespace CoreGateway.API.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    bool result = bool.Parse(content);
-                    if (result)
-                    {
-                        return GenerateJwtToken(userName);
-                    }
-                    else
-                    {
-                        return "";
-                    }
+                    long result = long.Parse(content);                    
+                    String acessToken= GenerateJwtToken(userName);
+                    TokenDTO tokenDTO = new TokenDTO();
+                    tokenDTO.acessToken = acessToken;
+                    tokenDTO.userId = result;
+                    return tokenDTO;
+                
                 }
                 else
                 {
-                    return "";
+                    return new TokenDTO();
                 }
             }
             catch (Exception ex)
